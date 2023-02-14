@@ -1,0 +1,100 @@
+
+.el-message {
+    background-color: white;
+    box-shadow: 0 3px 6px -4px #0000001f,
+    0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+    border: none;
+}
+
+.el-message__icon__success .el-message__icon {
+    color: #1890ff;
+}
+
+.el-message__icon__warning .el-message__icon {
+    color: orange;
+}
+
+.el-message__icon__error .el-message__icon {
+    color: rgba(250, 97, 97, 0.91);
+}
+
+.el-message .el-message__content {
+    font-size: 13px;
+    color: #000000d9;
+}
+
+.text-handle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    color: rgba(0, 0, 0, .45);
+    -webkit-box-orient: vertical;
+}
+
+.divide {
+    --tw-divide-y-reverse: 0;
+    border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+    border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
+
+.center {
+    /*div子均分位置*/
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center
+}
+
+.ico {
+    /**/
+    font-size: 1.2em;
+    color: #afafaf;
+}
+
+.ico1 {
+    /**/
+    font-size: 1.5em;
+    color: gold;
+}
+
+.ico1:hover {
+    /**/
+    font-size: 1.5em;
+    color: gold;
+}
+
+.ico2 {
+    /**/
+    font-size: 1.2em;
+    color: #afafaf;
+}
+
+/*重写message样式*/
+::v-deep .el-message {
+    background-color: white;
+    box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+    border: none;
+}
+
+::v-deep .el-message .el-message__icon {
+    color: #1890ff;
+}
+
+::v-deep .el-message .el-message__content {
+    font-size: 13px;
+    color: #000000d9;
+}
+
+.backtop {
+    /*返回顶*/
+    height: 100%;
+    border-radius: 50%;
+    width: 100%;
+    font-size: 1rem;
+    background-color: var(--el-bg-color-overlay);
+    box-shadow: var(--el-box-shadow-lighter);
+    text-align: center;
+    line-height: 40px;
+    color: #1989fa;
+}

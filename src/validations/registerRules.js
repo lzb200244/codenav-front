@@ -1,0 +1,70 @@
+//登入与注册的校验规则
+//账密登录校验
+export default {
+    username: [
+        {
+            required: true,//必填(
+            message: '用户名不能为空',//验证提示
+            trigger: 'blur'//失去焦点时
+        },
+        {
+            min: 6,
+            max: 18,
+            message: '用户名长度必须6-18',
+            trigger: 'blur'//失去焦点时
+        },
+    ],
+
+    email: [
+        {
+            required: true,//必填(
+            message: '邮箱不能为空',//验证提示
+            trigger: 'blur'//失去焦点时
+        },
+        {
+            type: 'email',
+            message: '请输入正确的邮箱地址',
+            trigger: ['blur', 'change'],
+        },
+    ],
+    password: [{
+        required: true,//必填(
+        message: '密码不能为空',//验证提示
+        trigger: 'blur'//失去焦点时
+    },
+        {
+            min: 6,
+            max: 16,
+            message: '密码长度必须6-16',
+            trigger: 'blur'//失去焦点时
+        },],
+
+}
+//邮箱登录校验
+export let emailRules = {
+    loginemail: [
+        {
+            required: true,//必填(
+            message: '邮箱不能为空',//验证提示
+            trigger: 'blur'//失去焦点时
+        },
+        {
+            type: 'email',
+            message: '请输入正确的邮箱地址',
+            trigger: ['blur', 'change'],
+        },
+    ],
+    code: [
+        {
+            required: true,//必填(
+            message: '验证码不能为空',//验证提示
+            trigger: 'blur'//失去焦点时
+        },
+        {
+            min: 6,
+            max: 7,
+            message: '验证码长度为6位!',
+            trigger: 'blur'//失去焦点时
+        },
+    ],
+}
