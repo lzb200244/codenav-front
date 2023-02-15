@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-main class="p-2" v-if="$route.meta.islogin">
+    <el-main class="p-2" v-if="$store.state.user!==''">
       <el-row :gutter="10" class="bg-light-50 relative">
         <div class="demo-type m-6 ">
 
@@ -203,6 +203,9 @@ export default {
   computed: {
     ...mapState(['user']),
     userDetail() {
+      if (this.$store.state.user === '') {
+        return ''
+      }
       return this.$store.state.user?.detail;
     }
   },

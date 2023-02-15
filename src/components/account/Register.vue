@@ -104,15 +104,6 @@ const onKeyUp = (e) => {
   }
 }
 onMounted(() => {
-
-  // register({
-  //   "username": "200244",
-  //   "password": "200244",
-  //   "re_password": "200244",
-  //   "email": "200244@qq.com"
-  // }).then(res => {
-  //   console.log(res)
-  // })
   document.addEventListener('keyup', onKeyUp)
 })
 

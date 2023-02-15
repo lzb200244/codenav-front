@@ -16,7 +16,7 @@ export function getNews() {
  */
 export function markStarPost(uid, status) {
     //收藏取消
-    return axios.put(`/operation/handleoperate`, {
+    return axios.put(`/operation/opt`, {
         uid,
         status,
     })
@@ -93,7 +93,7 @@ export function getAllComment(uid) {
  */
 export function Option(id, status, uid, value) {
 
-    return axios.post(`/operation/handleoperate`, {
+    return axios.post(`/operation/opt`, {
         id, status, uid, value
     });
 
@@ -104,9 +104,9 @@ export function Option(id, status, uid, value) {
  * @param email:邮箱号
  * @returns {*}
  */
-export function sendEmailCode({email}) {
+export function sendEmailCode({loginemail}) {
     return axios.post("/operation/email", {
-        email
+        email: loginemail
     })
 }
 

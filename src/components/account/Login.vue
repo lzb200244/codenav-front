@@ -216,13 +216,15 @@ export default {
         }
         //发送邮箱
         let that = this;
-        sendEmailCode(that.LoginForm).then((response) => {
-          if (response.code !== 200) {
+        console.log(this.LoginForm)
+        sendEmailCode(this.LoginForm).then((response) => {
+          if (response.code !== 1000) {
             message(response.msg, 'warning')
             return false
           } else {
-            let t = 60;
+            let t = 59;
             that.disabled = true
+            that.code = '60s重新发送';
             let remind = setInterval(function () {
               that.code = t + 's重新发送';
               t--;

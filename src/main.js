@@ -7,7 +7,6 @@ import UndrawUi from 'undraw-ui';
 import 'undraw-ui/dist/style.css';
 import 'virtual:windi.css';
 import '@/assets/font/fonts/iconfont.css'
-
 import store from "@/store";
 
 const app = createApp(App);
