@@ -31,8 +31,8 @@ export default defineConfig(({command, mode}) => {
                 '@': fileURLToPath(new URL('./src', import.meta.url)),
             }
         },
-
         server: {
+            https: env.ENV === 'production',
             hmr: true,
             cors: true, // 默认启用并允许任何源
             // open: true, // 在服务器启动时自动在浏览器中打开应用程序
@@ -46,6 +46,7 @@ export default defineConfig(({command, mode}) => {
                 }
             }
         },
+
         /**
          * 打包
          */
