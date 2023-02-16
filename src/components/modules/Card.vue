@@ -4,19 +4,14 @@
           v-for="(item,index) in SiteData"
           :key="item.uid">
     <el-card
-        class="box-card max-h-68  card"
+        class="box-card max-h-68 card"
         :style="showBoard"
         :shadow="showStyle">
       <el-skeleton :rows="6" animated default="attrs" v-show="Loading"></el-skeleton>
       <div @click="toDetail(item.uid)">
         <el-row :gutter="20">
           <el-col :span="6">
-            <el-avatar class="bg-light-400" shape="square" :size="75" v-if="item.img_url"
-                       :src="item.img_url">
-              <img src="/siteico.png"/>
-            </el-avatar>
-            <el-avatar shape="square" :size="75" v-else
-                       src="/siteico.png">
+            <el-avatar :src="item.img_url" class="bg-light-400" shape="square" :size="65">
 
             </el-avatar>
             <el-rate

@@ -1,6 +1,6 @@
 import {createStore} from 'vuex'
 import {recommendList, getInfo, getInforms} from "@/apis/account";
-import {getAllSelect,getContent} from "@/apis/operation";
+import {getAllSelect, getContent, getBillBoard} from "@/apis/operation";
 import {getRank} from "@/apis/hall";
 import message, {Notification} from '@/utils/messager';
 import {remove_token, get_token} from "@/utils/cookies";
@@ -102,7 +102,7 @@ const actions = {
         if (state.recommends?.length === 0) {
 
             recommendList(1).then(res => { //默认请求第一页
-                console.log(res.data, 234)
+
                 commit('setRecommend', res.data.results)
                 commit('setRecommendTotalCount', res.data.count)
             })
@@ -146,6 +146,16 @@ const actions = {
                 commit('setHitCount', res.data.hitCount)
             })
         }
+    },
+    /**
+     * 告示栏
+     * @param commit
+     * @param state
+     */
+    billboardAsync({commit, state}) {
+        getBillBoard().then(res => {
+            state.billboard = res.data
+        })
     },
     /**
      * 存储煤业信息
@@ -203,7 +213,11 @@ const store = createStore({
             allSelect: null,
             Informs: [], //用户通知
             collects: [], //我收藏的网站
-            ranks: []
+            ranks: [],
+            billboard: {
+                author: null,
+                board: null
+            }
 
         }
     },

@@ -318,7 +318,7 @@ export default {
     recommends() {
       //      if (Object.keys(this.$store.state.recommends).length === 0) {
       let recommend = this.$store.state.recommends
-      console.log(recommend, 2123)
+
       if (recommend?.length === 0) {
         /**
          *没有推荐过

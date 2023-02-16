@@ -136,3 +136,6 @@ export function getAllSelect() {
     return axios.get('/operation/all_select')
 
 }
+export function getBillBoard(){
+    return axios.get('/operation/board')
+}

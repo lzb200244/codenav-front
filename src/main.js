@@ -8,6 +8,8 @@ import 'undraw-ui/dist/style.css';
 import 'virtual:windi.css';
 import '@/assets/font/fonts/iconfont.css'
 import store from "@/store";
+// import VueLazyLoad from 'vue-lazyload'
+
 
 const app = createApp(App);
 app.directive('scroll', (el, binding) => {
@@ -23,38 +25,14 @@ app.directive('scroll', (el, binding) => {
     }
 })
 
-//认证函数全局
-/*
-app.config.globalProperties.$islogin = (router) => {
-    if (!router.currentRoute.value.meta.islogin) {
-        message('需要登入哦!', 'warning');
-        router.push('/login/');
-        return true
-    }
-    return false;
-}
- */
-/*
-app.directive('login', {
-    created(el, binding, vnode) {
-        console.log(binding.value,)
-    },
-});
-*/
-
-
-/**
- * 全局组件
- */
-/*
-app.component('navHeader', header);
-app.component('navFooter', footer);
-
- */
 app.use(UndrawUi);
 app.use(router);
 app.use(store)
 app.use(ElementPlus);
-
-
+// app.use(VueLazyLoad, {
+//     preLoad: 1,
+//     error: '/siteico.png',
+//     loading: 'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png',
+//     attempt: 2,
+// })
 app.mount('#app');

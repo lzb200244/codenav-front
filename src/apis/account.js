@@ -109,7 +109,7 @@ export function updateData({name, qq, habit, userAvatar, message,}) {
  * @constructor
  */
 export function ReCheck(uid) {
-    console.log(uid)
+
     return axios.put("/account/recommend", {
 
             uid

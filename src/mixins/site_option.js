@@ -47,14 +47,14 @@ export default {
                         (item, index) => {
                             if (item.uid === uid) {
                                 this.$store.state.collects.splice(index, 1)
-                                console.log('delete')
+
                             }
                         }
                     )
                     message('取消收藏')
                 } else {
                     this.$store.state.collects.push(item) //进入收藏夹state里
-                    console.log('push')
+
                     message('收藏成功')
                 }
             })

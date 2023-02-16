@@ -59,41 +59,8 @@
           </el-col>
           <el-col :xs="0" :sm="6">
             <el-aside class=" min-h-screen  mt-6 " width="100%">
-              <el-card shadow="never" style="border: 0" class="box-card my-4 mx-auto">
-                <div class="text-center">
-                  <p class="text-base mt-1  opacity-90">
-                    激 励 语
-                    <el-icon class="text-red-500">
-                      <span class="iconfont"> &#xe618; </span>
-                    </el-icon>
-                  </p>
-                  <el-scrollbar height="100px">
-                    <p class=" text-gray-500 opacity-90 text-xs tracking-normal mt-2 max-h-25  text-indent: 1.5rem ">
-                      回忆过去，满满的相思忘不了。朋友一生一起走，那些日子不再有，一句话，一辈子，一生情，一杯酒。有过伤，还有痛，还有你，还有我。
-                    </p>
-                  </el-scrollbar>
-                </div>
-              </el-card>
-              <el-card shadow="never" style="border: 0" class="box-card my-4 ">
-                <p style="line-height: 30px;height: 30px;opacity: 0.95">关于作者</p>
-                <el-divider class=" mt-3"></el-divider>
-                <el-row>
-                  <el-col :span="5" :sm="0" :md="4">
-                    <div class="block">
-                      <el-avatar :size="40"
-                                 src="https://defaultdata-1311013567.cos.ap-nanjing.myqcloud.com/p8.png"/>
-                    </div>
-                  </el-col>
-                  <el-col :span="19" :sm="20" :md="20">
-                    <el-scrollbar height="60px">
-                      <p class="text-sm text-gray-500">
-                        <code class="bg-blue-100 mx-1 rounded-md px-1">在校学生</code>,目前大2
-                        一枚,热爱<code class="bg-blue-100 mx-1 px-1 rounded-md">python</code>,对技术的渴望,如有不足恳请联系作者~~~~
-                      </p>
-                    </el-scrollbar>
-                  </el-col>
-                </el-row>
-              </el-card>
+              <bill-board :config="billboard.board"/>
+              <bill-board :config="billboard.author"/>
               <el-card shadow="never" style="border: 0" class="box-card my-2">
                 本周排行
                 <rank :ranks="ranks"/>
@@ -113,12 +80,14 @@
 
 import card from '@/components/modules/card.vue';
 import Rank from '@/components/modules/rank.vue';
+import BillBoard from "@/components/modules/BillBoard.vue";
 import {getContent} from "@/apis/operation";
 import {mapState} from "vuex";
 
+
 export default {
   components: {
-    card, Rank
+    card, Rank, BillBoard
   },
   methods: {
     /**
@@ -151,18 +120,33 @@ export default {
     return {
       order: '热门',
       btn: '',
-      filterList: [] //筛选选项
+      filterList: [], //筛选选项
+      config: {
+        title: '超级爬',
+        link: 'https://github.com/lzb200244/spider-pro.git',
+        img: '超级爬',
+        shape: 'square',
+        introduce: '一个只需要URL,爬光所有网站你需要的消息,表格,文章,图片,可视化',
+      },
+      infoConfig: {
+        title: '关于我',
+        link: '',
+        img: '/siteico.png',
+        shape: 'circle',
+        introduce: '一个慢慢来的人,使劲的卷,我爱吃鸡蛋卷,.....',
+      }
     }
   },
   mounted() {
     //获取数据axios
     this.$store.dispatch('pageAsync')
+    this.$store.dispatch('billboardAsync')
     //获取全部排行
     this.$store.dispatch('rankAsync')
 
   },
   computed: {
-    ...mapState(['pageList', 'ranks']),
+    ...mapState(['pageList', 'ranks', 'billboard']),
     selectList() {
       let user = this.$store.state.user
       if (user !== '' && user.detail?.habit.length !== 0) {

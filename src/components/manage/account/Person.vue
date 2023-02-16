@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-main class="p-2" v-if="$store.state.user!==''">
+    <el-main class="p-2" v-if="user!==''">
       <el-row :gutter="10" class="bg-light-50 relative">
         <div class="demo-type m-6 ">
 
@@ -75,6 +75,7 @@
       </el-row>
     </el-main>
     <el-dialog
+
         v-model="dialogFormVisible"
         title="修改资料"
         :width="windowWidth*0.4+150"
@@ -171,7 +172,7 @@ export default {
   },
   mounted() {
     //store对象
-    let query = this.$route.query;
+    const query = this.$route.query;
 
     if (query.code && query.state) {
       //todo QQ登录
@@ -184,9 +185,7 @@ export default {
     this.userAvatar = this.userDetail.userAvatar;
     this.isBind = this.userDetail.other //是否绑定第三方
     //用户信息
-    this.updateInfo = {
-      ...this.userDetail
-    }
+    this.updateInfo = {}
     document.addEventListener("keypress", (events) => {
       /**
        * 暗道
@@ -215,9 +214,9 @@ export default {
      * 头像还原
      */
     cancelEditInfo() {
-
       this.userAvatar = this.tempAvatar
       this.dialogFormVisible = false
+
     },
     /**
      *
@@ -232,7 +231,11 @@ export default {
      */
     editInfo() {
       //存储当前头像
-      this.tempAvatar = this.userAvatar
+      /**
+       * 处理空
+       **/
+      this.updateInfo = {...this.userDetail,}
+      this.tempAvatar = this.userAvatar = this.updateInfo.userAvatar;
       this.dialogFormVisible = true
     },
     BindTencent() {

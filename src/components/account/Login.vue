@@ -216,7 +216,7 @@ export default {
         }
         //发送邮箱
         let that = this;
-        console.log(this.LoginForm)
+
         sendEmailCode(this.LoginForm).then((response) => {
           if (response.code !== 1000) {
             message(response.msg, 'warning')

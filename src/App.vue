@@ -13,7 +13,7 @@ const getNew = () => {
   })
 }
 
-console.log(import.meta.env)
+
 const centerDialogVisible = ref(false)
 
 </script>
