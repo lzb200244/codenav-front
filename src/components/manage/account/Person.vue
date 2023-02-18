@@ -200,12 +200,17 @@ export default {
     })
   },
   computed: {
-    ...mapState(['user']),
+    ...mapState(
+        {
+          user: state => state.Account.user
+        }
+    ),
     userDetail() {
-      if (this.$store.state.user === '') {
+      const user = this.$store.state.Account.user
+      if (user === '') {
         return ''
       }
-      return this.$store.state.user?.detail;
+      return user?.detail;
     }
   },
   methods: {

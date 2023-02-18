@@ -146,19 +146,20 @@ export default {
 
   },
   computed: {
-    ...mapState(['pageList', 'ranks', 'billboard']),
+    ...mapState({
+          ranks: state => state.Hall.ranks,
+          pageList: state => state.Operation.pageList,
+          billboard: state => state.Operation.billboard
+        }
+    ),
     selectList() {
-      let user = this.$store.state.user
+      let user = this.$store.state.Account.user
       if (user !== '' && user.detail?.habit.length !== 0) {
         return user.detail.habit
       }
-      return this.$store.state?.allSelect?.selectList
+      return this.$store.state?.Operation.allSelect?.selectList
     },
-
-
   }
-
-
 }
 
 

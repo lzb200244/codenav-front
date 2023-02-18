@@ -1,8 +1,6 @@
-import instance, {request} from "@/axios";
+import instance from "@/axios";
 
 
-// instance.defaults.baseURL = 'https://api.example.com';
-// console.log(request('hall'))
 /**
  * 获取周排名
  */

@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     selectOption() {
-      let allSelect = this.$store.state.allSelect
+      let allSelect = this.$store.state.Operation.allSelect
       if (allSelect !== null) {
         return Object.keys(allSelect.select)
       }
@@ -63,7 +63,7 @@ export default {
     handleClick(value) {
 
       this.selectItem = value.props.name
-      this.s = this.$store.state?.allSelect?.select[this.selectItem]
+      this.s = this.$store.state?.Operation.allSelect?.select[this.selectItem]
     },
     /**
      * 通知选线修改

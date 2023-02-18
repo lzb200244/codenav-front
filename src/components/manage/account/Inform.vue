@@ -111,14 +111,14 @@ export default {
     this.$store.dispatch('informsAsync')
   },
   computed: {
-    ...mapState(['Informs']),
+    ...mapState({
+      Informs:state => state.Account.Informs
+    }),
     informOption() {
-
-      let allSelect = this.$store.state.allSelect
+      let allSelect = this.$store.state.Operation.allSelect
       if (allSelect === null) {
         return []
       }
-
       return allSelect.inform
     }
   },

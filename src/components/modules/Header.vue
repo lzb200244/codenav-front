@@ -22,15 +22,16 @@
             <span class="iconfont">&#xe64f;</span>
             资 源
           </el-menu-item>
+          <el-menu-item :disabled="true" index="/hall">
+            <span class="iconfont">&#xe6e9;</span>
+            大 厅
+          </el-menu-item>
           <el-menu-item index="/account/person">
             <span class="iconfont">&#xe605;</span>
             个 人
           </el-menu-item>
 
-          <el-menu-item index="/hall">
-            <span class="iconfont">&#xe6e9;</span>
-            大 厅
-          </el-menu-item>
+
           <el-row class="relative">
             <el-input
                 v-model.lazy="searchFrom"
@@ -82,7 +83,6 @@
           <el-menu-item index="/account/recommend" class="pl-0">
             <el-divider direction="vertical"/>
             <span class="iconfont" style="color: gold"> &#xe61a;</span>
-
             推荐
           </el-menu-item>
 
@@ -201,15 +201,17 @@ export default {
   },
   computed: {
     name() {
-      if (this.$store.state.user !== '') {
-        return this.$store.state.user.detail.name
+      const user=this.$store.state.Account.user
+      if (user !== '') {
+        return user.detail.name
       }
       return '登录'
     },
     userAvatar() {
       //是否存在用户头像
-      if (this.$store.state.user !== '') {
-        return this.$store.state.user.detail?.userAvatar
+      const user=this.$store.state.Account.user
+      if (user !== '') {
+        return user.detail?.userAvatar
       }
       return ''
     }

@@ -6,12 +6,16 @@ import message from '@/utils/messager';
 import {hideFullLoading, showFullLoading} from '@/utils/process';
 
 
-
 router.beforeEach((to, from, next) => {
     showFullLoading();
     const token = get_token();
     //如果存在user并且token合格就已登录
     store.dispatch('selectAsync')
+
+
+    if (to.meta.title) {
+        document.title = to.meta.title
+    }
 
     if (token) {
         store.dispatch('userAsync')

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*- scrollbar -*/
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #999;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:vertical:hover {
+            background-color: #666;
+        }
+
+        ::-webkit-scrollbar-thumb:vertical:active {
+            background-color: #333;
+        }
+
+        ::-webkit-scrollbar-button {
+            display: none;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.js"></script>
+<script>
+    $(function () {
+        console.log(1223)
+        $("#myframe").on("load", (function () {
+            const dom = $("#myframe").contents().prevObject[0]
+            console.log($(document.getElementById('myframe').contentWindow.document.body).html())
+        }));
+    })
+
+</script>
+<body>
+<iframe
+        allowtransparency="true"
+        id="myframe"
+        name="myframe"
+        frameborder="0" height="300" hspace="0" id="SellMoney"
+        scrolling="" vspace="0"
+        width="300"
+        src="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=102027552&redirect_uri=http%3A%2F%2Fwww.codeminer.cn%2Flogin&state=next">
+</iframe>
+
+
+</body>
+
+</html>

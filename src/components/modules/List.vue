@@ -105,7 +105,7 @@ export default {
       this.loading = true
       switch (this.isType) {
         case 'collect': {
-          if (this.page * 9 < this.$store.state.pageCount) {
+          if (this.page * 9 < this.$store.state.Operation.pageCount) {
             getContent('收藏', ++this.page).then(res => {
               this.loading = false
               this.$store.commit('setMoreCollect', res.data.results)
@@ -121,7 +121,7 @@ export default {
           break
         }
         default: {
-          if (this.page * 9 < this.$store.state.recommendsTotalCount) {
+          if (this.page * 9 < this.$store.state.Operation.recommendsTotalCount) {
             recommendList(++this.page).then(res => { //默认请求第一页
               this.$store.commit('setMoreRecommend', res.data.results)
               this.$store.commit('setRecommendTotalCount', res.data.count)

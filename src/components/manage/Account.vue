@@ -105,7 +105,9 @@ export default {
     }
   },
   computed: {
-    ...mapState(['hitCount']),
+    ...mapState({
+      hitCount: state => state.Account.hitCount
+    }),
     //获取路由当前访问组件
     activeIndex() {
       return this.$route.fullPath
@@ -113,7 +115,6 @@ export default {
 
   },
   mounted() {
-
     this.initShow = true;
     this.handlerWidth(this.windowWidth)
     window.onresize = () => {

@@ -317,7 +317,7 @@ export default {
   computed: {
     recommends() {
       //      if (Object.keys(this.$store.state.recommends).length === 0) {
-      let recommend = this.$store.state.recommends
+      let recommend = this.$store.state.Account.recommends
 
       if (recommend?.length === 0) {
         /**

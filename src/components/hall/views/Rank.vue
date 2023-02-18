@@ -77,12 +77,14 @@ export default {
     //获取当前周排序
     this.$store.dispatch('rankAsync')
     getRank(undefined, 1).then(res => {
-
       this.weekRank = Object.freeze(res.data)
     })
+
   },
   computed: {
-    ...mapState(['ranks'])
+    ...mapState({
+      ranks: state => state.Hall.ranks,
+    })
   },
   watch: {
     /**
@@ -100,7 +102,6 @@ export default {
       if (this.my === 0) {
         myRank().then(res => {
           this.my = res.data
-
         })
       }
       this.centerDialogVisible = true

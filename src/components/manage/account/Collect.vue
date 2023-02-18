@@ -49,14 +49,14 @@ export default {
   computed: {
     //搜索过滤
     filterData() {
-      let collects = this.$store.state.collects
+      let collects = this.$store.state.Operation.collects
       if (collects.length === 0) {
         /**
          * 没有收藏
          * */
         return collects
       }
-      return this.$store.state.collects.filter(item => item.name.includes(this.search));
+      return collects.filter(item => item.name.includes(this.search));
     }
   },
 }

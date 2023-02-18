@@ -110,7 +110,11 @@ export default {
     },
   },
   computed: {
-    ...mapState(['pageCount', 'pageList']),
+    ...mapState({
+
+      pageCount: state => state.Operation.pageCount,
+      pageList: state => state.Operation.pageList
+    }),
   },
   methods: {
     /**
@@ -118,9 +122,9 @@ export default {
      *
      * */
     handleEvent(filterList) {
-
       filterList = Object.values(filterList);
       if (this.loginRequire) return;
+      this.currentPage = 1 //显示第一页
       getContent(this.order, this.currentPage, filterList).then(res => {
         this.$store.commit('setPageCount', res.data.count)
         this.$store.commit('setPageList', res.data.results)

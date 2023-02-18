@@ -231,12 +231,12 @@ export default {
       config: {
         user: {
           //this.$store.state.user[0]?.detail;
-          id: this.$store.state.user ?
-              this.$store.state?.user?.detail?.pk : '',
-          username: this.$store.state?.user ?
-              this.$store.state?.user?.detail?.name : '',
-          avatar: this.$store.state?.user ?
-              this.$store.state?.user?.detail?.userAvatar : '',
+          id: this.$store.state.Account.user ?
+              this.$store.state?.Account.user?.detail?.pk : '',
+          username: this.$store.state?.Account.user ?
+              this.$store.state?.Account.user?.detail?.name : '',
+          avatar: this.$store.state?.Account.user ?
+              this.$store.state?.Account.user?.detail?.userAvatar : '',
           // 评论id数组 建议:存储方式用户id和文章id和评论id组成关系,根据用户id和文章id来获取对应点赞评论id,然后加入到数组中返回
           likes: [],//用户点赞对象
           content: '',

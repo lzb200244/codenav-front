@@ -61,7 +61,7 @@ export function getSiteDetail(uid) {
  * @constructor
  */
 export function Reply(reply_site, content, parentId = undefined) {
-    return axios.post(`/operation/reply`, {
+    return axios.post(`/operation/comment`, {
         reply_site,
         content,
         parentId,
@@ -75,7 +75,7 @@ export function Reply(reply_site, content, parentId = undefined) {
  */
 export function getAllComment(uid) {
 
-    return axios.get(`/operation/reply`, {
+    return axios.get(`/operation/comment`, {
         params: {
             uid
         }
@@ -119,7 +119,7 @@ export function sendEmailCode({loginemail}) {
  * @returns
  */
 export function getContent(ordering = 'hot', page = 1, filter, search) {
-    return axios.post("/operation/sitedatas", {
+    return axios.post("/operation/pages", {
             ordering,
             page,
             search,

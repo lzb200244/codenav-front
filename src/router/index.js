@@ -13,7 +13,14 @@ const routes = [
         path: '/index',
         name: 'index',
         component: () => import('@/components/index.vue'),
-        meta: {requiresAuth: false},
+        meta: {
+            requiresAuth: false,
+            title: '首页 - 做IT人只做搬运',
+            content: {
+                keywords: '',
+                description: ''
+            }
+        },
 
 
     },
@@ -21,7 +28,14 @@ const routes = [
         path: '/source',
         name: 'source',
         component: () => import('@/components/source/source.vue'),
-        meta: {requiresAuth: false},
+        meta: {
+            requiresAuth: false,
+            title: '全部资源-搬运工',
+            content: {
+                keywords: '',
+                description: ''
+            }
+        },
         children: [
             {
                 path: '/type/:type',
@@ -35,26 +49,51 @@ const routes = [
     {
         path: '/detail/:uid',
         name: 'detail',
-        meta: {requiresAuth: false},
+        meta: {
+            requiresAuth: false,
+            title: '详细-搬运工',
+            content: {
+                keywords: '',
+                description: ''
+            }
+        },
         component: () => import('@/components/detail.vue'),
     },
     {
         path: '/recommends',
         name: 'recommends',
-        meta: {requiresAuth: false},
+        meta: {
+            requiresAuth: false, title: '用户推荐-搬运工',
+            content: {
+                keywords: '',
+                description: ''
+            }
+        },
         redirect: '/account/recommend',
     },
     {
         path: '/register',
         name: 'register',
-        meta: {requiresAuth: false},
+        meta: {
+            requiresAuth: false, title: '注册-搬运工',
+            content: {
+                keywords: '',
+                description: ''
+            }
+        },
         component: () => import('@/components/account/register.vue'),
     },
     {
         path: '/login',
         name: 'login',
         component: () => import('@/components/account/login.vue'),
-        meta: {requiresAuth: false,},
+        meta: {
+            requiresAuth: false, title: '登录-搬运工',
+            content: {
+                keywords: '',
+                description: ''
+            }
+        },
     },
     /**
      *大厅
@@ -62,7 +101,13 @@ const routes = [
     {
         path: '/hall',
         name: 'hall',
-        meta: {requiresAuth: false},
+        meta: {
+            requiresAuth: false, title: '大厅-搬运工',
+            content: {
+                keywords: '',
+                description: ''
+            }
+        },
         component: () => import('@/components/hall/hall.vue'),
         children: [
             {
@@ -83,7 +128,13 @@ const routes = [
 
         component: () => import('@/components/manage/account.vue'),
         redirect: '/account/person',
-        meta: {requiresAuth: true,},
+        meta: {
+            requiresAuth: true, title: '个人-搬运工',
+            content: {
+                keywords: '',
+                description: ''
+            }
+        },
         children: [
             {
                 path: 'person',
