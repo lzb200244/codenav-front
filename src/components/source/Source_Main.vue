@@ -150,6 +150,7 @@ export default {
      * @param page
      */
     handleCurrentChange(page) {
+      if (this.loginRequire) return;
       getContent(this.order, page, this.filterList).then(res => {
         this.$store.commit('setPageCount', res.data.count)
         this.$store.commit('setPageList', res.data.results)

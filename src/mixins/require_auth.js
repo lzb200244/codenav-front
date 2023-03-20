@@ -1,17 +1,6 @@
 import message from '@/utils/messager';
+
 export default {
-    data() {
-        return {}
-    },
-    filters: { //过滤器
-
-    },
-    created() {
-
-    },
-    mounted() {
-
-    },
     computed: {   //计算属性
         loginRequire() {
             return this.require()

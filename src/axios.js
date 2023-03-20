@@ -21,7 +21,7 @@ const endLoading = () => {
     loading.close()
 }
 const instance = axios.create({
-    baseURL: import.meta.env.VITE_APP_BASE_URL,
+    baseURL:'/api',
     // baseURL: 'api',
     timeout: 1000,
     headers: {

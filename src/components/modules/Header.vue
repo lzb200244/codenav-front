@@ -22,7 +22,7 @@
             <span class="iconfont">&#xe64f;</span>
             资 源
           </el-menu-item>
-          <el-menu-item :disabled="true" index="/hall">
+          <el-menu-item  index="/hall">
             <span class="iconfont">&#xe6e9;</span>
             大 厅
           </el-menu-item>
@@ -30,8 +30,6 @@
             <span class="iconfont">&#xe605;</span>
             个 人
           </el-menu-item>
-
-
           <el-row class="relative">
             <el-input
                 v-model.lazy="searchFrom"

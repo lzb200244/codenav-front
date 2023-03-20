@@ -101,6 +101,7 @@ const routes = [
     {
         path: '/hall',
         name: 'hall',
+        redirect: '/hall/chat',
         meta: {
             requiresAuth: false, title: '大厅-搬运工',
             content: {
@@ -115,6 +116,13 @@ const routes = [
                 name: 'rank',
 
                 component: () => import('@/components/hall/views/rank.vue'),
+
+            },
+            {
+                path: 'chat',
+                name: 'chat',
+
+                component: () => import('@/components/hall/views/chatGroup.vue'),
 
             },
         ]

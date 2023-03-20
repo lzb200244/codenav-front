@@ -1,8 +1,10 @@
-import {getRank} from "@/apis/hall";
+import {getRank, getChatList} from "@/apis/hall";
+
 
 export default {
     state: {
-        ranks: [], //排名数据
+        ranks: [], //排名数据,
+        chats: []
     },
     mutations: {
         /**
@@ -12,6 +14,14 @@ export default {
          */
         setRank(state, ranks) {
             state.ranks = ranks
+        },
+        /**
+         * 保存聊天记录
+         * @param state
+         * @param chats
+         */
+        setChat(state, chats) {
+            state.chats = chats
         }
     },
     actions: {
@@ -26,6 +36,16 @@ export default {
                     commit('setRank', Object.freeze(res.data))
                 })
             }
+        },
+        chatAsync({commit, state}) {
+            if (
+                state.chats.length === 0
+            ) {
+                getChatList().then(res => {
+                    commit('setChat', Object.freeze(res.data))
+                })
+            }
+
         }
     },
 

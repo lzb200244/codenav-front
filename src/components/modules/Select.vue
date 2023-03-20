@@ -2,6 +2,7 @@
 <template>
   <el-select
       filterable
+      size="large"
       placement="bottom-start"
       @change="SelectChange"
       v-model="selects"

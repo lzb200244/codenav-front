@@ -21,3 +21,15 @@ export function myRank(tp) {
         tp
     })
 }
+
+export function getChatList() {
+    return instance.get("/hall/chat")
+}
+
+export function handleTrump({id, status}) {
+    return instance.put("/hall/chat", {
+
+        id, status
+
+    })
+}

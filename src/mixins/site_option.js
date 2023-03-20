@@ -10,17 +10,6 @@ export default {
             default: store.state.pageList
         },
     },
-    data() {
-        return {}
-    },
-    filters: {},
-    created() {
-
-    },
-    mounted() {
-
-    },
-    computed: {},
     methods: {
         /**
          * 取消与收藏
@@ -35,7 +24,6 @@ export default {
                 for (let i = 0; i < this.SiteData.length; i++) {
                     item = this.SiteData[i]
                     if (item.uid === uid) {
-
                         status ? item.collect_num-- : item.collect_num++
                         item.sitedatauser.star = !status;
                         break //找到就结束循环此时的item为对象

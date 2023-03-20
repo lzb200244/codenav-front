@@ -4,7 +4,7 @@ import {defineConfig, loadEnv} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import viteCompression from 'vite-plugin-compression';
 import importToCDN from 'vite-plugin-cdn-import'
-import visualizer from "rollup-plugin-visualizer";
+// import visualizer from "rollup-plugin-visualizer";
 
 export default defineConfig(({command, mode}) => {
     // 根据当前工作目录中的 `mode` 加载 .env 文件
@@ -12,7 +12,6 @@ export default defineConfig(({command, mode}) => {
     const env = loadEnv(mode, process.cwd(), '')
 
     return {
-
         base: env.ENV === 'production' ? '/' : './',
         define: {},
         plugins: [
