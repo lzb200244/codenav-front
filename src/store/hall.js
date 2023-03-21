@@ -4,7 +4,8 @@ import {getRank, getChatList} from "@/apis/hall";
 export default {
     state: {
         ranks: [], //排名数据,
-        chats: []
+        chats: [],
+        commentList: []
     },
     mutations: {
         /**
@@ -14,6 +15,10 @@ export default {
          */
         setRank(state, ranks) {
             state.ranks = ranks
+        },
+
+        setCommentList(state, commentList) {
+            state.commentList = commentList
         },
         /**
          * 保存聊天记录

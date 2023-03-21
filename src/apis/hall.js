@@ -22,14 +22,22 @@ export function myRank(tp) {
     })
 }
 
-export function getChatList() {
-    return instance.get("/hall/chat")
+export function getChatList(id) {
+    return instance.get("/hall/chat", {
+        params: {
+            id
+        }
+    })
 }
 
 export function handleTrump({id, status}) {
     return instance.put("/hall/chat", {
-
         id, status
+    })
+}
 
+export function handleRemark({replay_id, content}) {
+    return instance.post("/hall/chat", {
+        replay_id, content
     })
 }

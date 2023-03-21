@@ -8,7 +8,6 @@ import 'undraw-ui/dist/style.css';
 import 'virtual:windi.css';
 import '@/assets/font/fonts/iconfont.css'
 import store from "@/store";
-// import VueLazyLoad from 'vue-lazyload'
 
 
 const app = createApp(App);
@@ -24,6 +23,7 @@ app.directive('scroll', (el, binding) => {
         dom.overflow = 'hidden'
     }
 })
+
 
 app.use(UndrawUi);
 app.use(router);
