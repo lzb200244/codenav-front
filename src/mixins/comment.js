@@ -1,21 +1,52 @@
-import {handleRemark} from "@/apis/hall";
+import {handleRemark, getChatList} from "@/apis/hall";
+
+
 export default {
     data() {
         return {
             commentObj: {
                 content: '',
                 replay_id: null,
-            }
+                issue_type: 1
+            },
+
         }
     },
     methods: {
-        remark(id) {
-            this.commentObj.replay_id=id
-            console.log(this.commentObj)
-            handleRemark(this.commentObj).then(res => {
-                console.log(res)
+        /**
+         * 发送评论mixin
+         * @param replay_id
+         */
+        remark(replay_id = null) {
+            this.commentObj.replay_id = replay_id
+            //空
+            let that = this
+            if (this.commentObj.content !== '<p><br></p>') {
+                handleRemark(this.commentObj).then(res => {
+                    //    回复成功
+                    const {data: {id}} = res
+                    const {detail: {userAvatar: avatar, score}, username: creator} = that.$store.state.Account.user
+
+                    that.$store.state.Hall.commentList.replays.push(
+                        {
+                            id,
+                            content: that.commentObj.content,
+                            avatar,
+                            creator,
+                            score,
+                            create_time: new Date().toLocaleString().replaceAll("/", '-')
+                        }
+                    )
+                    that.commentObj.content = ''
+                })
+
+            }
+
+        },
+        handleFilterChat(filterObj) {
+            getChatList(filterObj).then(res => {
+                this.$store.commit('setChat', res.data)
             })
-            this.commentObj.content = ''
         }
     }
 }

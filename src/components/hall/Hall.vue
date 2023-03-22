@@ -7,21 +7,28 @@
           <el-row :gutter="40" style="width: 100%;">
             <el-col :md="8">
               <el-form-item label="类型筛选">
-                <mySelect/>
+                <el-select v-model="filterObj.type" clearable placeholder="Select">
+                  <el-option
+                      v-for="item in selectOptions"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                  />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :md="8">
               <el-form-item label="精确搜索">
-                <el-input size="large" placeholder="对当前条件进行搜索"/>
+                <el-input size="large" v-model="filterObj.title" placeholder="对当前条件进行搜索"/>
               </el-form-item>
             </el-col>
             <el-col :md="8">
-              <el-button type="primary" style="float: right" size="large">写问答</el-button>
+              <el-button @click="handleFilter" type="primary" style="float: right" size="large">操作</el-button>
             </el-col>
           </el-row>
         </el-header>
         <el-main class="my-3">
-          <router-view></router-view>
+          <router-view :filterObj="filterObj"></router-view>
         </el-main>
       </el-container>
 
@@ -30,14 +37,28 @@
 </template>
 
 <script>
-
-import mySelect from '/src/components/modules/select.vue';
+import comment from "@/mixins/comment";
 
 export default {
   name: "hall",
-  components: {
-    mySelect
-  }
+  mixins: [comment],
+
+  data() {
+    return {
+      selectOptions: [{value: 1, label: '问答'}],
+      filterObj: {
+        type: 1,
+        title: '',
+        order: 'recommend'
+      }
+    }
+  },
+  methods: {
+    handleFilter() {
+      //
+      this.handleFilterChat(this.filterObj)
+    }
+  },
 
 }
 </script>

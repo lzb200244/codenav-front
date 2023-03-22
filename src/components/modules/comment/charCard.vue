@@ -14,10 +14,13 @@
       <el-text :truncated="true" size="large" class="ml-5 mt-1"> {{ chat.creator }}</el-text>
       <el-tag class="ml-3 mt-1" type="success">{{ chat.score }}</el-tag>
     </el-row>
-    <el-row class=" my-5" :style="config.style">
-      <el-text size="large">
-        {{ chat.content }}
-      </el-text>
+    <el-row class="my-4" :style="config.style">
+      <Editor
+          style="height: 200px;"
+          v-model="chat.content"
+          :defaultConfig="{readOnly :true}"
+          @onCreated="handleCreated"
+      />
     </el-row>
     <el-row>
       <el-col :xs="6" :sm="4" :md="4"> {{ chat.create_time }}</el-col>
@@ -31,7 +34,7 @@
       </el-col>
       <el-col :xs="3" :sm="3" :md="3" v-if="config.isShowComments">
 
-        <div @click="handleLookComments(chat.id)" class="opt">
+        <div @click="handleLookComments(chat.id,chat.creator)" class="opt">
           <el-badge is-dot class="item">
             <el-icon>
               <ChatLineRound/>
@@ -41,42 +44,12 @@
         </div>
       </el-col>
       <el-col :xs="3" :sm="3" :md="3">
-        <el-popover
-            placement="top"
-            :width="500"
-            trigger="click">
-          <template #default>
-            <div style="border: 1px solid #ccc">
-              <Toolbar
-                  style="border-bottom: 1px dashed #ccc"
-                  :editor="editorRef"
-                  :defaultConfig="toolbarConfig"
-                  :mode="mode"
-              />
-              <Editor
-                  style="height: 200px;"
-                  v-model="valueHtml"
-                  :defaultConfig="editorConfig"
-                  :mode="mode"
-                  @onCreated="handleCreated"
-              />
-            </div>
-            <el-button type="primary" class="float-right mt-3" @click="remark(chat.id)">
-              发 送
-              <el-icon>
-                <Position/>
-              </el-icon>
-            </el-button>
-          </template>
-          <template #reference>
-            <div class="opt">
-              <el-icon>
-                <ChatDotRound/>
-              </el-icon>
-              <el-text class="ml-2 " style="font-size: 14px">回复</el-text>
-            </div>
-          </template>
-        </el-popover>
+        <div class="opt" @click="sendReplayUser(chat.id,chat.creator)">
+          <el-icon>
+            <ChatDotRound/>
+          </el-icon>
+          <el-text class="ml-2 " style="font-size: 14px">回复</el-text>
+        </div>
       </el-col>
       <el-col :xs="3" :sm="3" :md="3">
         <div class="opt">
@@ -87,17 +60,17 @@
         </div>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
 <script>
-import '@wangeditor/editor/dist/css/style.css' // 引入 css
+
 import {handleTrump, getChatList} from "@/apis/hall";
 import {ChatLineRound, Pointer, WarnTriangleFilled, ChatDotRound, Position} from '@element-plus/icons-vue'
 import comment from "@/mixins/comment";
+import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import {onBeforeUnmount, ref, shallowRef} from 'vue'
-import {Editor, Toolbar} from '@wangeditor/editor-for-vue'
+import {Editor} from '@wangeditor/editor-for-vue'
 
 export default {
   name: "charCard",
@@ -105,51 +78,29 @@ export default {
     // 编辑器实例，必须用 shallowRef
     const editorRef = shallowRef()
     // 内容 HTML
-
-    const value = ref('<p>hello</p>')
-    const toolbarConfig = {                        // JS 语法
-      /* 工具栏配置 */
-      toolbarKeys: [
-        // 菜单 key
-        'headerSelect',
-        // 分割线
-        '|',
-
-        // 菜单 key
-        'bold', 'italic',
-
-        // 菜单组，包含多个菜单
-        {
-          key: 'group-more-style', // 必填，要以 group 开头
-          title: '更多样式', // 必填
-          iconSvg: '<svg>....</svg>', // 可选
-          menuKeys: ["through", "code", "clearStyle"] // 下级菜单 key ，必填
-        },
-        // 继续配置其他菜单...
-      ]
-    }
-    const editorConfig = {placeholder: '请输入内容...'}
+    const editorConfig = {placeholder: '请输入内容...',}
     // 组件销毁时，也及时销毁编辑器
     onBeforeUnmount(() => {
       const editor = editorRef.value
       if (editor == null) return
       editor.destroy()
     })
-
     const handleCreated = (editor) => {
       editorRef.value = editor // 记录 editor 实例，重要！
     }
     return {
       editorRef,
-      valueHtml: value,
-      mode: 'simple', // 或 'simple'
-      toolbarConfig,
       editorConfig,
       handleCreated
     };
   },
   mixins: [comment],
+
   props: {
+    value: {
+      type: Number,
+      required: true
+    },
     chat: {
       default: [],
       type: Object
@@ -157,23 +108,52 @@ export default {
     config: {
       default: {
         style: {
-          height: '120px'
+          height: '140px'
         },
         isShowComments: true
       }
     }
   },
   components: {
-    Editor, Toolbar,
+    Editor,
     ChatLineRound, Pointer, WarnTriangleFilled, ChatDotRound, Position
   },
   methods: {
-    handleLookComments(id) {
-      getChatList(id).then(res => {
+    /**
+     * 获取当前处于的评论区
+     * @param replayId
+     * @param replayName
+     */
+    handleLookComments(replayId, replayName) {
+
+      this.$emit('chat-changed', replayId)
+      //当前点击的评论区
+      this.$store.commit('setReplayUser', {replayId, replayName})
+      /**
+       * 请求当前评论区的所有评论包括子回复
+       */
+      getChatList({chatId: replayId}).then(res => {
         this.$store.commit('setCommentList', res.data)
       })
     },
+    /**
+     * 处理回复时回复人的id
+     * @param replayId
+     * @param replayName
+     */
+    sendReplayUser(replayId, replayName) {
+      location.href = location.href.replaceAll('#replay', '') + '#replay'
+      //  存储在当前回复的id
+      this.$store.commit('setReplayUser', {replayId, replayName})
+    },
+    /**
+     * 点赞
+     * @param id
+     */
     trumpClick(id) {
+      /**
+       *更新点赞
+       */
       const items = []
       const chatList = this.$store.state.Hall.chats
       for (let i = 0; i < chatList.length; i++) {
@@ -182,6 +162,9 @@ export default {
         }
         items.push(chatList[i])
       }
+      /**
+       * 提交点赞
+       */
       handleTrump({id})
       this.$store.commit('setChat', items)
     }

@@ -22,10 +22,18 @@ export function myRank(tp) {
     })
 }
 
-export function getChatList(id) {
+/**\
+ *过滤筛选
+ * @param id 单个聊天=>返回子聊天
+ * @param issue_type 类型
+ * @param opt 类型 对时间,热度,点赞
+ * @param title 标题过滤
+ * @returns {*}
+ */
+export function getChatList(chatFilter) {
     return instance.get("/hall/chat", {
         params: {
-            id
+            ...chatFilter
         }
     })
 }
@@ -36,8 +44,8 @@ export function handleTrump({id, status}) {
     })
 }
 
-export function handleRemark({replay_id, content}) {
+export function handleRemark(replay) {
     return instance.post("/hall/chat", {
-        replay_id, content
+        ...replay
     })
 }

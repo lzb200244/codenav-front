@@ -5,7 +5,11 @@ export default {
     state: {
         ranks: [], //排名数据,
         chats: [],
-        commentList: []
+        commentList: [],
+        replayUser: {
+            replayId: null,
+            replayName: null
+        }
     },
     mutations: {
         /**
@@ -15,6 +19,9 @@ export default {
          */
         setRank(state, ranks) {
             state.ranks = ranks
+        },
+        setReplayUser(state, replayUser) {
+            state.replayUser = replayUser
         },
 
         setCommentList(state, commentList) {
@@ -46,6 +53,7 @@ export default {
             if (
                 state.chats.length === 0
             ) {
+                //获取所有评论非子回复
                 getChatList().then(res => {
                     commit('setChat', Object.freeze(res.data))
                 })
