@@ -24,22 +24,25 @@ export default {
             if (this.commentObj.content !== '<p><br></p>') {
                 handleRemark(this.commentObj).then(res => {
                     //    回复成功
-                    const {data: {id}} = res
-                    const {detail: {userAvatar: avatar, score}, username: creator} = that.$store.state.Account.user
-
-                    that.$store.state.Hall.commentList.replays.push(
-                        {
-                            id,
-                            content: that.commentObj.content,
-                            avatar,
-                            creator,
-                            score,
-                            create_time: new Date().toLocaleString().replaceAll("/", '-')
-                        }
-                    )
+                    const {id, user} = res.data
+                    const comment = {
+                        id,
+                        ...that.commentObj,
+                        like: 0,
+                        // title: null,
+                        replay: null,
+                        create_time: new Date().toLocaleString().replaceAll("/", '-'),
+                        user
+                    }
+                    //回复
+                    if (replay_id === null) {
+                        that.$store.commit('addChat', comment)
+                    } else {
+                        Object.assign(comment, {replays: []})
+                        that.$store.commit('addComment', comment)
+                    }
                     that.commentObj.content = ''
                 })
-
             }
 
         },

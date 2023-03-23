@@ -1,7 +1,6 @@
 import axios from "@/axios";
 
 
-
 /**
  注册
  */

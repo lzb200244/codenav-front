@@ -8,9 +8,35 @@ export default {
         recommends: [], //我推荐的网站
         recommendsTotalCount: 0, //总共数据
         Informs: [],
-        hitCount: 0
+        hitCount: 0,
+        //关注列表
+        follows: []
     },
     mutations: {
+        /***
+         * 关注列表
+         * @param state
+         * @param setFollows
+         */
+        setFollows(state, setFollows) {
+            state.follows = setFollows
+        },
+        /**
+         * 取关
+         * @param state
+         * @param followID
+         */
+        popFollows(state, followID) {
+            state.follows.splice(state.follows.indexOf(followID), 1)
+        },
+        /**
+         * 关注
+         * @param state
+         * @param followID
+         */
+        addFollows(state, followID) {
+            state.follows.push(followID)
+        },
         setInform(state, Informs) {
             state.Informs = Informs
         },
@@ -96,8 +122,9 @@ export default {
                             return router.push({path: '/login'})
                         }
                     }
-
+                    //存储用户信息
                     commit('saveUser', res.data)
+                    commit('setFollows', res.data.follows)
                     commit('setHitCount', res.data.hitCount)
                 })
             }

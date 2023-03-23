@@ -14,22 +14,11 @@
             <img src="/siteico.png" style="width: 35px;margin-top: 5px;">
             <span style="margin-left: 8px;font-size: 16px;color: black;">搬运工</span>
           </el-menu-item>
-          <el-menu-item index="/index">
-            <span class="iconfont">&#xe7a7;</span>
-            主 页
+
+          <el-menu-item v-for="item in renderPath" :index="item.path">
+            {{ item.label }}
           </el-menu-item>
-          <el-menu-item index="/source">
-            <span class="iconfont">&#xe64f;</span>
-            资 源
-          </el-menu-item>
-          <el-menu-item  index="/hall">
-            <span class="iconfont">&#xe6e9;</span>
-            大 厅
-          </el-menu-item>
-          <el-menu-item index="/account/person">
-            <span class="iconfont">&#xe605;</span>
-            个 人
-          </el-menu-item>
+
           <el-row class="relative">
             <el-input
                 v-model.lazy="searchFrom"
@@ -83,7 +72,6 @@
             <span class="iconfont" style="color: gold"> &#xe61a;</span>
             推荐
           </el-menu-item>
-
           <el-menu-item index="/account/person" style="height: 58px">
             <el-dropdown>
               <span class="el-dropdown-link">
@@ -164,7 +152,6 @@
 import {remove_token} from '@/utils/cookies';
 import require_auth from '@/mixins/require_auth'
 import {mapMutations} from "vuex";
-
 /*
 * todo 导航栏组件
 *
@@ -179,6 +166,7 @@ export default {
     }
   },
   data() {
+
     return {
       clearHistory: false,
       centerDialogVisible: false,
@@ -186,10 +174,24 @@ export default {
       searchFrom: '',
       historyList: [],//存储搜索历史
       currentPath: '',
+      renderPath: [
+        {
+          label: '主 页',
+          path: '/index'
+        }, {
+          label: '资 源',
+          path: '/source'
+        }, {
+          label: '大 厅',
+          path: '/hall'
+        }, {
+          label: '个 人',
+          path: '/account/person'
+        }
+      ]
     };
   },
   mounted() {
-
     this.searchFrom = this.$route.query?.search
     this.currentPath = this.$route.fullPath
     //挂在本地的历史搜索记录
@@ -199,7 +201,7 @@ export default {
   },
   computed: {
     name() {
-      const user=this.$store.state.Account.user
+      const user = this.$store.state.Account.user
       if (user !== '') {
         return user.detail.name
       }
@@ -207,7 +209,7 @@ export default {
     },
     userAvatar() {
       //是否存在用户头像
-      const user=this.$store.state.Account.user
+      const user = this.$store.state.Account.user
       if (user !== '') {
         return user.detail?.userAvatar
       }

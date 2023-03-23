@@ -7,6 +7,7 @@
       <el-tab-pane label="最新" name="latest"></el-tab-pane>
       <el-button @click="drawer = true" type="primary" style="float: right" size="large">写问答</el-button>
     </el-tabs>
+
     <div class="chats">
       <template v-for="chat in chats" :key="chat.id">
         <el-card class="bg-cyan-50" shadow="never" style="border: none;margin-bottom: 20px;">
@@ -37,9 +38,11 @@
           />
         </div>
         <el-row>
-          <el-select v-model="this.commentObj.issue_type" class="m-2" placeholder="Select">
+          <el-select style="width: 100%"  size="large"
+                     v-model="this.commentObj.issue_type" class="m-2 mt-10" placeholder="Select">
             <el-option
-                v-for="item in selectOptions"
+
+                v-for="item in chatSelect"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"/>
@@ -48,12 +51,15 @@
       </template>
       <template #footer>
         <div style="flex: auto">
-          <el-button @click="drawer = false">cancel</el-button>
-          <el-button type="primary" @click="publishIssue">confirm</el-button>
+          <el-button @click="drawer = false">取消</el-button>
+          <el-button type="primary" @click="publishIssue">发 布</el-button>
         </div>
       </template>
     </el-drawer>
+
   </div>
+  <!--  {{ $store.state.Hall.commentList }}-->
+
 </template>
 
 <script>
@@ -130,6 +136,7 @@ export default {
 
     this.$store.dispatch('chatAsync')
   },
+
   methods: {
     /**
      * 发布问答
@@ -150,8 +157,10 @@ export default {
 
   },
   computed: {
+
     ...mapState({
-      chats: state => state.Hall.chats
+      chats: state => state.Hall.chats,
+      chatSelect: state => state.Operation.allSelect.chatSelect,
     }),
   }
 }

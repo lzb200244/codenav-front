@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex;justify-content: center">
+  <div  style="display: flex;justify-content: center;" >
     <el-footer class="mt-10 mb-3 z-1">
       <div>
         <el-tooltip content="此项目已开源" show-after="200">

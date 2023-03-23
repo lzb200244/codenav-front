@@ -146,8 +146,8 @@
 import axios from 'axios'
 import {updateData, bindTencent} from '@/apis/account';
 import message from '@/utils/messager';
-import images from '@/components/modules/images.vue';
-import mySelect from '/src/components/modules/select.vue';
+import images from '@/components/modules/general/images.vue';
+import mySelect from '@/components/modules/general/select.vue';
 import {mapState} from "vuex";
 
 export default {

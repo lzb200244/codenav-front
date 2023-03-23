@@ -204,7 +204,7 @@
 </template>
 
 <script>
-import card from '@/components/modules/card.vue'
+import card from '@/components/modules/source/card.vue'
 import emoji from '/public/emoji'
 import message from '@/utils/messager';
 import {getAllComment, Reply, getSiteDetail, Option} from '@/apis/operation';

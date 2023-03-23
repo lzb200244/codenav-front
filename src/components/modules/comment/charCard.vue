@@ -1,19 +1,9 @@
 <template>
   <div>
     <el-row>
-      <div>
-        <template v-if="chat.avatar">
-          <el-avatar :size="48" :src="chat.avatar">
-            {{ avatar }}
-          </el-avatar>
-        </template>
-        <template v-else>
-          <el-avatar :size="48">{{ chat.creator }}</el-avatar>
-        </template>
-      </div>
-      <el-text :truncated="true" size="large" class="ml-5 mt-1"> {{ chat.creator }}</el-text>
-      <el-tag class="ml-3 mt-1" type="success">{{ chat.score }}</el-tag>
+      <user-card :mode="'comment'" :classList="'w-60'" :shadow="'never'" :user-obj="chat"/>
     </el-row>
+
     <el-row class="my-4" :style="config.style">
       <Editor
           style="height: 200px;"
@@ -34,7 +24,7 @@
       </el-col>
       <el-col :xs="3" :sm="3" :md="3" v-if="config.isShowComments">
 
-        <div @click="handleLookComments(chat.id,chat.creator)" class="opt">
+        <div @click="handleLookComments(chat.id,chat.user.username)" class="opt">
           <el-badge is-dot class="item">
             <el-icon>
               <ChatLineRound/>
@@ -44,7 +34,7 @@
         </div>
       </el-col>
       <el-col :xs="3" :sm="3" :md="3">
-        <div class="opt" @click="sendReplayUser(chat.id,chat.creator)">
+        <div class="opt" @click="sendReplayUser(chat.id,chat.user.username)">
           <el-icon>
             <ChatDotRound/>
           </el-icon>
@@ -66,11 +56,13 @@
 <script>
 
 import {handleTrump, getChatList} from "@/apis/hall";
-import {ChatLineRound, Pointer, WarnTriangleFilled, ChatDotRound, Position} from '@element-plus/icons-vue'
+import {ChatLineRound, Pointer, WarnTriangleFilled, ChatDotRound, Position} from '@element-plus/icons-vue';
 import comment from "@/mixins/comment";
-import '@wangeditor/editor/dist/css/style.css' // 引入 css
-import {onBeforeUnmount, ref, shallowRef} from 'vue'
+import '@wangeditor/editor/dist/css/style.css'; // 引入 css
+import {onBeforeUnmount, shallowRef} from 'vue';
 import {Editor} from '@wangeditor/editor-for-vue'
+
+import userCard from "@/components/modules/account/userCard.vue";
 
 export default {
   name: "charCard",
@@ -116,7 +108,7 @@ export default {
   },
   components: {
     Editor,
-    ChatLineRound, Pointer, WarnTriangleFilled, ChatDotRound, Position
+    ChatLineRound, Pointer, WarnTriangleFilled, ChatDotRound, Position, userCard
   },
   methods: {
     /**
@@ -133,6 +125,7 @@ export default {
        * 请求当前评论区的所有评论包括子回复
        */
       getChatList({chatId: replayId}).then(res => {
+
         this.$store.commit('setCommentList', res.data)
       })
     },

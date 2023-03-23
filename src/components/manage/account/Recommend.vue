@@ -181,9 +181,9 @@ import {recommend} from '@/apis/account';
 import {spider} from '@/apis/operation';
 import message, {Notification} from '@/utils/messager';
 import axios from 'axios'
-import list from '@/components/modules/list.vue'
-import images from '@/components/modules/images.vue';
-import mySelect from '/src/components/modules/select.vue';
+import list from '@/components/modules/account/list.vue'
+import images from '@/components/modules/general/images.vue';
+import mySelect from '@/components/modules/general/select.vue';
 
 export default {
   name: 'Recommend',

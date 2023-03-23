@@ -1,5 +1,5 @@
 <template>
-  <div class="common-layout bg-light-600">
+  <div class="common-layout ">
     <navHeader/>
     <el-container>
       <div class="affix-container">

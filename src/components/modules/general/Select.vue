@@ -16,7 +16,7 @@
       </template>
     </el-tabs>
     <el-option
-        v-for="item in s"
+        v-for="item in itemSelect"
         :key="item.value"
         :label="item.label"
         :value="item.value"/>
@@ -40,12 +40,39 @@ export default {
       selects: [],
       activeName: '推荐',
       selectItem: '推荐',
-      s: [{value: 1, label: 2}]
+      base: [],
+      itemSelect: [
+        {
+          "label": "Typescript",
+          "value": 21
+        }, {
+          "label": "Vue",
+          "value": 22
+        }, {
+          "label": "数据集",
+          "value": 62
+        }, {
+          "label": "leetcode",
+          "value": 72
+        }, {
+          "label": "前端",
+          "value": 50
+        }, {
+          "label": "源码",
+          "value": 57
+        }, {
+          "label": "算法",
+          "value": 56
+        }, {
+          "label": "虚拟化/云原生",
+          "value": 33
+        }]
     }
   },
   mounted() {
+    this.base = this.itemSelect
     this.selects = this.selected.map(item => item.value) ?? []
- 
+
   },
   computed: {
     selectOption() {
@@ -62,9 +89,12 @@ export default {
      * 点击tab标签事件
      */
     handleClick(value) {
-
       this.selectItem = value.props.name
-      this.s = this.$store.state?.Operation.allSelect?.select[this.selectItem]
+      if (this.selectItem === '推荐') {
+        this.itemSelect = this.base
+        return
+      }
+      this.itemSelect = this.$store.state?.Operation.allSelect?.select[this.selectItem]
     },
     /**
      * 通知选线修改

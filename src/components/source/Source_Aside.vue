@@ -1,6 +1,6 @@
 <template>
-  <el-aside :width="asideConf.asideWidth" class="transition-show min-h-screen bg-light-600">
-    <el-scrollbar :height=scrollHeight>
+  <el-aside :width="asideConf.asideWidth" class="transition-show min-h-screen">
+    <el-scrollbar>
       <el-menu
           default-active="/type/language"
           class="el-menu-vertical-demo shadow-sm min-h-screen menu-aside"
@@ -121,12 +121,12 @@ export default {
   },
   computed: {
     //计算滚动条大小适应窗口
-    scrollHeight() {
-      if (window.screen.height > 800) {
-        return window.screen.height + 'px'
-      }
-      return window.screen.height * 0.7 + 'px'
-    }
+    // scrollHeight() {
+    //   if (window.screen.height > 800) {
+    //     return window.screen.height + 'px'
+    //   }
+    //   return window.screen.height * 0.7 + 'px'
+    // }
   }
 }
 </script>

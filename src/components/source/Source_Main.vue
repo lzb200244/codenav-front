@@ -1,5 +1,5 @@
 <template>
-  <el-main class="min-h-screen bg-light-600 ">
+  <el-main class="min-h-screen  ">
     <el-row><span class="text-xl mb-10 ml-2 text-gray-500"> {{ text }}</span></el-row>
     <el-row class="min-h-45 max-h-60  mb-5 ">
       <el-col class="min-h-20 max-h-60 mb-0 p-8 mt-5  " style="background:#ffffff;position: relative">
@@ -69,8 +69,8 @@
   </el-main>
 </template>
 <script>
-import Card from '/src/components/modules/card.vue';
-import mySelect from '/src/components/modules/select.vue';
+import Card from '/src/components/modules/source/Card.vue';
+import mySelect from '/src/components/modules/general/Select.vue';
 import {getContent} from '@/apis/operation';
 import require_auth from '@/mixins/require_auth'
 import {mapState} from "vuex";

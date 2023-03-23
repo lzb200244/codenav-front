@@ -1,6 +1,6 @@
 <script setup>
-import navHeader from '@/components/modules/header.vue';
-import navFooter from '@/components/modules/footer.vue';
+import navHeader from '@/components/header.vue';
+import navFooter from '@/components/footer.vue';
 import {MoreFilled} from '@element-plus/icons-vue'
 import {getNews} from "@/apis/operation";
 import {ref} from 'vue'
@@ -18,7 +18,7 @@ const centerDialogVisible = ref(false)
 
 </script>
 <template>
-  <div class="common-layout">
+  <div class="common-layout bg-light-600" >
     <el-button class="update_info" circle type="primary" @click="getNew">
       <el-icon>
         <MoreFilled/>
@@ -55,8 +55,6 @@ const centerDialogVisible = ref(false)
       <navHeader/>
     </div>
     <div class="content">
-
-
       <router-view style="min-height: 100vh" id="content"></router-view>
     </div>
     <div class="footer">

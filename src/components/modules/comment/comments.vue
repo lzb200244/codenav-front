@@ -4,7 +4,7 @@
     <template v-if="comment.replays">
       <template v-for="item in comment.replays">
         <char-card :chat="item" :config="{
-          style:{height:'30px'},isShowComments:false
+          style:{height:'20px'},isShowComments:false
         }"/>
         <div>
           <comments :comment="item"></comments>

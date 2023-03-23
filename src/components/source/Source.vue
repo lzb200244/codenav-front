@@ -18,7 +18,7 @@
 <script>
 import sourceAside from '@/components/source/source_aside.vue'
 import sourceMain from '@/components/source/source_main.vue'
-import card from '@/components/modules/card.vue';
+import card from '@/components/modules/source/card.vue';
 
 
 export default {

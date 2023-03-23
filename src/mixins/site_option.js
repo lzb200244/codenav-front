@@ -1,7 +1,7 @@
-import {Notification} from "@/utils/messager";
-import {markStarPost} from "@/apis/operation";
 import store from "@/store";
-import message from "@/utils/messager";
+import {markStarPost} from "@/apis/operation";
+
+import message, {Notification} from "@/utils/messager";
 
 export default {
     props: {

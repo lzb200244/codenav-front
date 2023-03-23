@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import ranks from '@/components/modules/rank.vue';
+import ranks from '@/components/modules/hall/rank.vue';
 import {getRank, myRank} from "@/apis/hall";
 import {mapState} from "vuex";
 import {GoldMedal, Search} from '@element-plus/icons-vue'

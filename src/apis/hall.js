@@ -49,3 +49,29 @@ export function handleRemark(replay) {
         ...replay
     })
 }
+
+/**
+ * 请求圈子
+ * @param circleFilter
+ *
+ * @returns {*}
+ */
+export function getCircleList(circleFilter) {
+    return instance.get('/hall/circle', {
+        params: {
+            ...circleFilter
+        }
+    })
+}
+
+/**
+ * 跟谁
+ * @param follow 跟随id
+ * @param status 取关与关注
+ * @returns {*}
+ */
+export function following({follow, status}) {
+    return instance.post('/hall/circle', {
+        follow, status
+    })
+}

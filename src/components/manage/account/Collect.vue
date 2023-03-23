@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import list from '@/components/modules/list.vue'
+import list from '@/components/modules/account/list.vue'
 
 export default {
   name: 'Collect',

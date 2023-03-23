@@ -78,9 +78,9 @@
 </template>
 <script>
 
-import card from '@/components/modules/card.vue';
-import Rank from '@/components/modules/rank.vue';
-import BillBoard from "@/components/modules/BillBoard.vue";
+import card from '@/components/modules/source/card.vue';
+import Rank from '@/components/modules/hall/rank.vue';
+import BillBoard from "@/components/modules/main/BillBoard.vue";
 import {getContent} from "@/apis/operation";
 import {mapState} from "vuex";
 
