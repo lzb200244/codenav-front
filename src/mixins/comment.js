@@ -18,6 +18,7 @@ export default {
          * @param replay_id
          */
         remark(replay_id = null) {
+
             this.commentObj.replay_id = replay_id
             //空
             let that = this

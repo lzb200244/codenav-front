@@ -4,7 +4,7 @@ import {defineConfig, loadEnv} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import viteCompression from 'vite-plugin-compression';
 import importToCDN from 'vite-plugin-cdn-import'
-// import visualizer from "rollup-plugin-visualizer";
+import visualizer from "rollup-plugin-visualizer";
 
 export default defineConfig(({command, mode}) => {
     // 根据当前工作目录中的 `mode` 加载 .env 文件
@@ -27,13 +27,13 @@ export default defineConfig(({command, mode}) => {
                 ext: '.gz', //文件类型
             }),
             //打包视图
-            // visualizer({
-            //     emitFile: true,//是否被触摸
-            //     filename: "test.html",//生成分析网页文件名
-            //     open: true,//在默认用户代理中打开生成的文件
-            //     gzipSize: true,//从源代码中收集 gzip 大小并将其显示在图表中
-            //     brotliSize: true,//从源代码中收集 brotli 大小并将其显示在图表中
-            // }),
+            visualizer({
+                emitFile: true,//是否被触摸
+                filename: "test.html",//生成分析网页文件名
+                open: true,//在默认用户代理中打开生成的文件
+                gzipSize: true,//从源代码中收集 gzip 大小并将其显示在图表中
+                brotliSize: true,//从源代码中收集 brotli 大小并将其显示在图表中
+            }),
             //todo 引入cdn
             importToCDN({
                 modules: [
@@ -64,6 +64,12 @@ export default defineConfig(({command, mode}) => {
                         var: 'Vuex',
                         path: 'https://cdn.staticfile.org/vuex/4.1.0/vuex.global.prod.min.js'
                     },
+                    // {
+                    //     name: 'wang-editor5',
+                    //     var: 'wangeditor5',
+                    //     path: 'https://cdn.staticfile.org/wangeditor5/5.1.23/index.min.js',
+                    //     css: 'https://cdn.staticfile.org/wangeditor5/5.1.23/css/style.min.css'
+                    // },
 
 
                 ]
@@ -111,5 +117,6 @@ export default defineConfig(({command, mode}) => {
         }
     }
 })
+
 
 

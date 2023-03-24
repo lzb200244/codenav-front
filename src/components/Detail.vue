@@ -205,10 +205,9 @@
 
 <script>
 import card from '@/components/modules/source/card.vue'
-import emoji from '/public/emoji'
+import emoji from '/public/emoji.ts'
 import message from '@/utils/messager';
 import {getAllComment, Reply, getSiteDetail, Option} from '@/apis/operation';
-
 import {markStarPost} from '@/apis/operation';
 import require_auth from '@/mixins/require_auth'
 import site_option from "@/mixins/site_option";

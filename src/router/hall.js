@@ -32,6 +32,12 @@ export default [
                 component: () => import('@/components/hall/views/Circle.vue'),
 
             },
+            {
+                path: 'stimulate',
+                name: 'stimulate',
+                component: () => import('@/components/hall/views/Stimulate.vue'),
+
+            },
         ]
 
     },

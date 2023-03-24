@@ -31,17 +31,16 @@ export default {
                 }
                 if (status) {
                     //找到收藏对应的选项
-                    this.$store.state.collects.forEach(
+                    this.$store.state.Operation.collects.forEach(
                         (item, index) => {
                             if (item.uid === uid) {
-                                this.$store.state.collects.splice(index, 1)
-
+                                this.$store.commit('popCollect',index) //进入收藏夹state里
                             }
                         }
                     )
                     message('取消收藏')
                 } else {
-                    this.$store.state.collects.push(item) //进入收藏夹state里
+                    this.$store.commit('setMoreCollect', [item]) //进入收藏夹state里
 
                     message('收藏成功')
                 }

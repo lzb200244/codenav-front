@@ -4,7 +4,8 @@
       <el-col style="display: flex;position: relative;align-items: center">
         <div style="margin:0 15px;font-weight: bolder">{{ index + 1 }}</div>
         <div>
-          <el-avatar :src="item.avatar"></el-avatar>
+          <avatar :avatar="item.avata??'key'" :username="item.name"></avatar>
+
         </div>
         <div style="margin-left: 10px;">{{ item.name }}</div>
         <div style="position: absolute;right: 5%">
@@ -17,12 +18,16 @@
 
 <script>
 
+import avatar from "@/components/modules/account/avatar.vue";
 
 /**
  * 排行榜
  */
 export default {
   name: "Rank",
+  components: {
+    avatar
+  },
   props: {
     ranks: {
       type: Array,

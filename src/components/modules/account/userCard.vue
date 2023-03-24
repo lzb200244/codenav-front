@@ -3,14 +3,7 @@
     <template #default>
       <el-row class='flex' style="align-items: center">
         <el-col :xs="8" :sm="8">
-          <template v-if="userObj.user.avatar">
-            <el-avatar :size="48" :src="userObj.user.avatar">
-              {{ userObj.user.avatar }}
-            </el-avatar>
-          </template>
-          <template v-else>
-            <el-avatar :size="48">{{ userObj.user.username }}</el-avatar>
-          </template>
+          <avatar :avatar="userObj.user.avatar??'key'" :username="userObj.user.username"></avatar>
         </el-col>
         <el-col :xs="8" :sm="7">
           <el-popover
@@ -21,14 +14,7 @@
             <template #default>
               <el-row>
                 <el-col :xs="14" :sm="14">
-                  <template v-if="userObj.user.avatar">
-                    <el-avatar :size="52" :src="userObj.user.avatar">
-                      {{ userObj.user.avatar }}
-                    </el-avatar>
-                  </template>
-                  <template v-else>
-                    <el-avatar :size="52">{{ userObj.user.username }}</el-avatar>
-                  </template>
+                  <avatar :avatar="userObj.user.avatar??'key'" :username="userObj.user.username"></avatar>
                   <el-tag class="ml-2" type="success">1级</el-tag>
                 </el-col>
                 <el-col :xs="3" :sm="3">
@@ -94,10 +80,14 @@
 </template>
 
 <script>
+import avatar from "@/components/modules/account/avatar.vue";
 import {following} from "@/apis/hall";
 import {mapState} from "vuex";
 
 export default {
+  components: {
+    avatar
+  },
   props: {
     //用户对象
     userObj: {

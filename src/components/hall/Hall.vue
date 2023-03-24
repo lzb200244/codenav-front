@@ -7,6 +7,7 @@
             <el-radio-button @click="$router.push('/hall/chat')" label="问 答"/>
             <el-radio-button @click="$router.push('/hall/rank')" label="排 行"/>
             <el-radio-button @click="$router.push('/hall/circle')" label="圈 子"/>
+            <el-radio-button @click="$router.push('/hall/stimulate')" label="激 励"/>
             <!--            <el-radio-button label="Chicago"/>-->
           </el-radio-group>
         </el-row>

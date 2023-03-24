@@ -9,12 +9,19 @@
     </el-tabs>
 
     <div class="chats">
-      <template v-for="chat in chats" :key="chat.id">
+      <template v-if="chats.length!==0">
+        <template v-for="chat in chats" :key="chat.id">
+          <el-card class="bg-cyan-50" shadow="never" style="border: none;margin-bottom: 20px;">
+            <char-card @chat-changed="handleChangeChatId" :chat="chat"/>
+            <el-row class="mt-15" v-if="chat.id===chatId">
+              <comment-area/>
+            </el-row>
+          </el-card>
+        </template>
+      </template>
+      <template v-else>
         <el-card class="bg-cyan-50" shadow="never" style="border: none;margin-bottom: 20px;">
-          <char-card @chat-changed="handleChangeChatId" :chat="chat"/>
-          <el-row class="mt-15" v-if="chat.id===chatId">
-            <comment-area/>
-          </el-row>
+          <el-empty description="没有发现跟多评论"/>
         </el-card>
       </template>
     </div>
@@ -38,7 +45,7 @@
           />
         </div>
         <el-row>
-          <el-select style="width: 100%"  size="large"
+          <el-select style="width: 100%" size="large"
                      v-model="this.commentObj.issue_type" class="m-2 mt-10" placeholder="Select">
             <el-option
 
@@ -58,7 +65,7 @@
     </el-drawer>
 
   </div>
-  <!--  {{ $store.state.Hall.commentList }}-->
+
 
 </template>
 

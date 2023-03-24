@@ -18,9 +18,13 @@
 
     <el-button type="primary" class="float-right m-6" @click="remark(replayUser.replayId)">{{ opt }}</el-button>
   </div>
-  <el-row style="text-align: left;width: 100%">
-    <comments :comment="commentList"/>
-  </el-row>
+  <template v-if="commentList">
+    <el-row style="text-align: left;width: 100%">
+      <comments :comment="commentList"/>
+    </el-row>
+  </template>
+
+
 </template>
 
 <script>

@@ -1,4 +1,4 @@
-import {getRank, getChatList, getCircleList} from "@/apis/hall";
+import {getRank, getChatList, getCircleList, getStimulateGoods} from "@/apis/hall";
 
 
 export default {
@@ -10,7 +10,8 @@ export default {
             replayId: null,
             replayName: null
         },
-        circleList: []
+        circleList: [],
+        goods: []
     },
     mutations: {
         /**
@@ -40,6 +41,24 @@ export default {
          */
         setChat(state, chats) {
             state.chats = chats
+        },
+        setStimulateGoods(state, goods) {
+            state.goods = goods
+        },
+        /**
+         * 减少库存
+         * @param state
+         * @param goodId 商品id
+         * @param count 数量
+         */
+        subStimulateGoodsStore(state, goodId, count = 1) {
+            state.goods.forEach(
+                item => {
+                    if (item.id === goodId) {
+                        item.store -= count
+                    }
+                }
+            )
         },
         addChat(state, chat) {
             console.log(state.chats)
@@ -74,6 +93,13 @@ export default {
             if (state.circleList.length === 0) {
                 getCircleList().then(res => {
                     commit('setCircleList', res.data)
+                })
+            }
+        },
+        stimulateGoodsAsync({commit, state}) {
+            if (state.circleList.length === 0) {
+                getStimulateGoods().then(res => {
+                    commit('setStimulateGoods', res.data)
                 })
             }
         }

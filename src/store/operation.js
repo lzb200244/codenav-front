@@ -46,6 +46,9 @@ export default {
         setMoreCollect(state, moreCollect) {
             state.collects.push(...moreCollect)
         },
+        popCollect(state,index){
+            state.collects.splice(index, 1)
+        },
         /**
          * 煤业数据
 

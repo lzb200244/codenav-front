@@ -56,10 +56,10 @@ export function handleRemark(replay) {
  *
  * @returns {*}
  */
-export function getCircleList(circleFilter) {
+export function getCircleList({type} = {}) {
     return instance.get('/hall/circle', {
         params: {
-            ...circleFilter
+            type
         }
     })
 }
@@ -70,8 +70,26 @@ export function getCircleList(circleFilter) {
  * @param status 取关与关注
  * @returns {*}
  */
-export function following({follow, status}) {
+export function following({follow, status} = {}) {
     return instance.post('/hall/circle', {
         follow, status
     })
+}
+
+/**
+ *获取商品列表
+ * @returns {*}
+ */
+export function getStimulateGoods() {
+    return instance.get('/hall/stimulate')
+}
+
+/**
+ * 兑换物品
+ * @param id 商品id
+ * @param count 数量
+ * @returns {*}
+ */
+export function buyGoods({id, count = 1} = {}) {
+    return instance.post('/hall/stimulate', {id, count})
 }

@@ -21,9 +21,9 @@ const endLoading = () => {
     loading.close()
 }
 const instance = axios.create({
-    baseURL:'/api',
+    baseURL: '/api',
     // baseURL: 'api',
-    timeout: 1000,
+    timeout: 20000,
     headers: {
         'X-Custom-Header': 'code-miner'
     }
@@ -75,21 +75,20 @@ instance.interceptors.response.use(async function (response) {
     return response.data;
 }, function (error) {
     const response = error.response
-
-    if (response.status === 403) {
+    if (response?.status === 403) {
         message('请先登录!!', 'warning');
         router.push('/login')
         return
     }
-    if (response.status === 429) {
+    if (response?.status === 429) {
         message('操作频率过快,已被限流,稍后在试试', 'warning');
         //反扒重定向到百度
         return window.location.href = "https://www.baidu.com";
     }
-    if (response.status > 500) {
+    if (response?.status > 500) {
         message('请求失败', 'error');
     }
-    let error_res = response.data;
+    let error_res = response?.data;
     message(error_res.msg, 'warning')
     // endLoading()
     return Promise.reject(new Error(error_res.msg));
