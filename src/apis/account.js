@@ -178,3 +178,4 @@ export function deleteInforms(pk, clear) {
     })
 
 }
+

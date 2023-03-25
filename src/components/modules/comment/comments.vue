@@ -2,7 +2,7 @@
   <el-divider/>
   <div style="width: 100%;" class="mt-15 ml-15">
     <template v-if="comment.replays">
-      <template v-for="item in comment.replays">
+      <template v-for="item in comment.replays" :key="item.id">
         <char-card :chat="item" :config="{
           style:{height:'20px'},isShowComments:false
         }"/>

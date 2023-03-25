@@ -105,12 +105,15 @@ export default {
       type: Boolean,
       default: false
     },
+    SiteData: {
+      type: Array,
+      default: []
+    },
     autoWidth: {
       type: Boolean,
       default: true
     },
     //传进来的数据
-
     //每页显示个数
     ShowCount: {
       type: Object,

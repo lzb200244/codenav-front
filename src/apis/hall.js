@@ -93,3 +93,14 @@ export function getStimulateGoods() {
 export function buyGoods({id, count = 1} = {}) {
     return instance.post('/hall/stimulate', {id, count})
 }
+
+export function getOrders() {
+    return instance.get('/hall/order')
+}
+
+export function getBaseHall({path, params} = {}) {
+    console.log(params)
+    return instance.get(`/hall/${path}`, {
+        params
+    })
+}

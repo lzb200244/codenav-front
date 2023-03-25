@@ -10,8 +10,8 @@
 
     <template v-if="circleList.length!==0">
       <el-row>
-        <template v-for="user in circleList">
-          <user-card style="border: 1px solid rgba(228,231,237,0.86)" :user-obj="user"/>
+        <template v-for="user in circleList" :key="user.pk">
+          <user-card style="border: 1px solid rgba(228,231,237,0.86)" :user-obj="user.user.id"/>
         </template>
       </el-row>
     </template>
@@ -48,7 +48,7 @@ export default {
     handleTab(value) {
       getCircleList({type: value.props.name}).then(res => {
         // console.log(this === that)
-        this.$store.commit('setCircleList', res.data)
+        this.$store.commit('setCircle', res.data)
       })
     }
   },

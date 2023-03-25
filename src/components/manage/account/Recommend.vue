@@ -2,7 +2,7 @@
   <div class="common-layout">
     <el-container>
       <el-main class="p-2" style="overflow-y: hidden">
-        <el-row :gutter="10" class="p-3 relative bg-light-50" style="margin-right: 0;margin-left: 0;">
+        <el-row :gutter="10" class="px-3 relative bg-cyan-50" style="margin-right: 0;margin-left: 0;">
           <p style="height: 60px;line-height: 40px ;font-size: 18px;">
             推荐
             <el-icon style="color: gold">
@@ -34,18 +34,54 @@
             </el-popover>
           </div>
         </el-row>
-        <template v-if="recommends.length===0">
-          <el-empty description="推荐获取积分~~~~~$$">
-            <el-button type="primary" class="ml-1" @click="drawer2 = true">
-              我要推荐
-            </el-button>
-          </el-empty>
-        </template>
-        <template v-else>
-          <el-scrollbar height="500px">
-            <list :SiteData="recommends" isType="recommend"/>
-          </el-scrollbar>
-        </template>
+        <el-row class="mt-6">
+          <template v-if="recommends.length===0">
+            <el-empty style="width: 100%" description="推荐获取积分~~~~~$$">
+              <el-button type="primary" class="ml-1" @click="drawer2 = true">
+                我要推荐
+              </el-button>
+            </el-empty>
+          </template>
+          <template v-else>
+            <el-scrollbar class="bg-cyan-50" style="width: 100%" height="500px">
+              <template v-for="item in recommends " :key="item.name">
+                <lists
+                    class="my-4"
+                    :title="item.name"
+                    :content="item.introduce"
+                    :img-conf="{src:item.img_url,style: {height: '50px'}}">
+                  <template #tag>
+                    <span></span>
+                  </template>
+                  <template #opt>
+                    <el-button v-if="item.isvalid==='审核中'" loading type="primary" text>
+                      {{ item.isvalid }}
+                    </el-button>
+                    <el-button v-else-if="item.isvalid==='通过审核'" type="success" text icon="SuccessFilled">
+                      {{ item.isvalid }}
+                    </el-button>
+                    <el-button-group v-else>
+                      <el-button @click="reCheck(item.uid)" type="danger" text>
+                        <span class="iconfont">&#xe633;</span>
+                        未通过
+                      </el-button>
+                      <el-popconfirm title="是否确认删除?" @confirm="deleteRecommend(item.uid)">
+                        <template #reference>
+                          <el-button type="danger" text>
+                            <span class="iconfont">&#xe718;</span>
+                          </el-button>
+                        </template>
+                      </el-popconfirm>
+                    </el-button-group>
+
+                  </template>
+                </lists>
+              </template>
+
+            </el-scrollbar>
+          </template>
+        </el-row>
+
       </el-main>
     </el-container>
   </div>
@@ -173,23 +209,25 @@
       </div>
     </template>
   </el-drawer>
-
 </template>
 <script>
+import axios from 'axios'
 import recommendRules from '@/validations/recommendRules';
 import {recommend} from '@/apis/account';
 import {spider} from '@/apis/operation';
 import message, {Notification} from '@/utils/messager';
-import axios from 'axios'
-import list from '@/components/modules/account/list.vue'
 import images from '@/components/modules/general/images.vue';
 import mySelect from '@/components/modules/general/select.vue';
+import Lists from "@/components/modules/general/list.vue";
+import {DeleteRecommend, ReCheck} from '@/apis/account';
+
 
 export default {
   name: 'Recommend',
+
   components: {
     images,
-    list,
+    Lists,
     mySelect
   },
   data() {
@@ -212,6 +250,7 @@ export default {
     };
   },
   created() {
+    //drawer的宽度
     this.windowWidth = document.documentElement.clientWidth;
   },
   mounted() {
@@ -222,6 +261,36 @@ export default {
 
   },
   methods: {
+    /**
+     * 重新审核用户推荐信息
+     * */
+    reCheck(uid) {
+      ReCheck(uid).then((response) => {
+        Notification('已发起审核', "", 'info')
+        let lst = []
+        for (let i = 0; i < this.recommends.length; i++) {
+          let item = this.recommends[i]
+          if (item.uid === uid) item.isvalid = '审核中';
+          lst.push(item)
+        }
+        this.$store.commit('setRecommend', lst)
+      });
+    },
+    /**
+     * 删除自己推荐的项目
+     * @param uid 外间
+     */
+    deleteRecommend(uid) {
+      DeleteRecommend(uid).then(() => {
+            Notification('删除成功', "", 'warring')
+            /**
+             * 更新store
+             */
+            this.$store.commit('setRecommend',
+                this.recommends.filter(item => item.uid !== uid))
+          }
+      );
+    },
     handleEvent(value) {
       value = Object.values(value);
       this.Recommend.datatype = value
@@ -231,11 +300,6 @@ export default {
      */
     findExist(value) {
       return false
-      // let url = `${this.baseURL.replace('api', '')
-      //     .replace("8000", '5173')}detail/${item[0].uid}`;
-      // Notification(`<a href="${url}" target="_blank">点击跳转</a>`, '该项目已经存在', 'warning',);
-      // this.loading = false;
-      // return false;
     },
     //取消本库图片的回调
     cancelImages() {
@@ -263,6 +327,10 @@ export default {
         this.Recommend[item] = ''
       })
     },
+    /**
+     * 爬虫任务
+     * @constructor
+     */
     SpiderTask() {
       let that = this;
       this.$refs.formNode.validate((valid) => {
@@ -316,9 +384,7 @@ export default {
   },
   computed: {
     recommends() {
-      //      if (Object.keys(this.$store.state.recommends).length === 0) {
       let recommend = this.$store.state.Account.recommends
-
       if (recommend?.length === 0) {
         /**
          *没有推荐过

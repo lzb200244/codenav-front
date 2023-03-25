@@ -14,6 +14,7 @@
                 <el-col :span="20">
                   <el-scrollbar>
                     <div class="scrollbar-flex-content my-3">
+
                       <template v-for="item in  selectList" :key="item.label">
                         <el-button
                             size="large"

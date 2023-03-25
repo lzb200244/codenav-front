@@ -1,15 +1,7 @@
-import store from "@/store";
 import {markStarPost} from "@/apis/operation";
-
 import message, {Notification} from "@/utils/messager";
 
 export default {
-    props: {
-        SiteData: {
-            type: Object,
-            default: store.state.pageList
-        },
-    },
     methods: {
         /**
          * 取消与收藏
@@ -17,7 +9,6 @@ export default {
          * @param status 状态
          */
         clickStarUnstar(uid, status) {
-
             if (this.loginRequire) return
             markStarPost(uid, status).then((res) => {
                 let item = {}
@@ -29,19 +20,19 @@ export default {
                         break //找到就结束循环此时的item为对象
                     }
                 }
+                //todo 从收藏列表去除
                 if (status) {
                     //找到收藏对应的选项
                     this.$store.state.Operation.collects.forEach(
                         (item, index) => {
                             if (item.uid === uid) {
-                                this.$store.commit('popCollect',index) //进入收藏夹state里
+                                this.$store.commit('popCollect', index) //进入收藏夹state里
                             }
                         }
                     )
                     message('取消收藏')
                 } else {
                     this.$store.commit('setMoreCollect', [item]) //进入收藏夹state里
-
                     message('收藏成功')
                 }
             })
@@ -70,7 +61,6 @@ export default {
             window.open(routeUrl.href, '_blank');
         }
 
-        // 其它属性方法......
     }
 }
 

@@ -4,9 +4,9 @@
       <el-col :xs="24" :sm="12">
         <el-card shadow="never">
           <template #header>
-            <div class="card-header">
+            <div class="h-10 card-header">
               <span>总排名</span>
-              <el-button style="float: right" type="primary" @click="findRank">
+              <el-button size="large" style="float: right" type="primary" @click="findRank">
                 <el-icon style="vertical-align: middle" class="mr-3">
                   <Search/>
                 </el-icon>
@@ -20,15 +20,16 @@
       <el-col :xs="24" :sm="12">
         <el-card shadow="never">
           <template #header>
-            <div class="card-header">
+            <div class="card-header h-10">
               <span>周排名</span>
               <el-date-picker
+                  class="float-right "
                   v-model="week"
+                  size="large"
                   value-format="YYYY/MM/DD"
                   type="week"
                   format="[Week] ww"
-                  placeholder="Pick a week"
-              />
+                  placeholder="按日期筛选"/>
             </div>
           </template>
           <ranks :ranks="weekRank"/>

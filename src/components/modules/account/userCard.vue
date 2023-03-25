@@ -24,7 +24,10 @@
                   </template>
                   <template v-else>
                     <template></template>
-                    <el-button @click="follow(userObj.user.id,followed)">{{ followStatus }}</el-button>
+                    <el-button @click="follow(userObj.user.id,followed)">
+
+                      {{ userObj.user.cross ? "互相关注" : followStatus }}
+                    </el-button>
                   </template>
                 </el-col>
               </el-row>
@@ -65,7 +68,9 @@
               <el-button type="primary" @click="follow(userObj.user.id,followed)">关 注</el-button>
             </template>
             <template v-else>
-              <el-button @click="follow(userObj.user.id,followed)">{{ followStatus }}</el-button>
+              <el-button @click="follow(userObj.user.id,followed)">
+                {{ userObj.user.cross ? "互相关注" : followStatus }}
+              </el-button>
             </template>
           </template>
           <template v-else-if="mode==='comment'">
@@ -131,7 +136,7 @@ export default {
       }
       following({follow: id, status}).then(res => {
         if (res.data.cross) {
-          this.followStatus = '互相关注'
+          // this.followStatus = '互相关注'
         }
       })
     }

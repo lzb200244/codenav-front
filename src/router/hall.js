@@ -38,6 +38,12 @@ export default [
                 component: () => import('@/components/hall/views/Stimulate.vue'),
 
             },
+            {
+                path: 'order',
+                name: 'order',
+                component: () => import('@/components/hall/views/Order.vue'),
+
+            },
         ]
 
     },
