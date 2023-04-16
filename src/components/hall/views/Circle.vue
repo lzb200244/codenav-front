@@ -10,8 +10,10 @@
 
     <template v-if="circleList.length!==0">
       <el-row>
-        <template v-for="user in circleList" :key="user.pk">
-          <user-card style="border: 1px solid rgba(228,231,237,0.86)" :user-obj="user.user.id"/>
+
+        <template v-for="user in circleList" :key="user.user.id">
+          <!--          {{user.user}}-->
+          <user-card style="border: 1px solid rgba(228,231,237,0.86)" :user-obj="user"/>
         </template>
       </el-row>
     </template>
@@ -43,6 +45,7 @@ export default {
 
   mounted() {
     this.$store.dispatch('circleListAsync')
+
   },
   methods: {
     handleTab(value) {

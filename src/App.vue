@@ -18,7 +18,7 @@ const centerDialogVisible = ref(false)
 
 </script>
 <template>
-  <div class="common-layout bg-light-600" >
+  <div class="common-layout bg-light-600">
     <el-button class="update_info" circle type="primary" @click="getNew">
       <el-icon>
         <MoreFilled/>
@@ -54,8 +54,8 @@ const centerDialogVisible = ref(false)
     <div class="header">
       <navHeader/>
     </div>
-    <div class="content">
-      <router-view style="min-height: 100vh" id="content"></router-view>
+    <div style="min-height: 100vh" class="content">
+      <router-view id="content"></router-view>
     </div>
     <div class="footer">
       <navFooter/>

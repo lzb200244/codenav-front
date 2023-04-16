@@ -3,7 +3,6 @@
     <el-main class="p-2" v-if="user!==''">
       <el-row :gutter="10" class="bg-light-50 relative">
         <div class="demo-type m-6 ">
-
           <el-tooltip content="点击修改信息" placement="bottom">
             <el-avatar
                 v-if="userAvatar!=='key'"
@@ -100,7 +99,7 @@
         <el-form-item label="头像">
           <el-upload
               class="avatar-uploader"
-              :action="baseURL+'/operation/uploadfile'"
+              :action="'/api/operation/uploadfile'"
               :limit="1"
               :data="{pk:userDetail.pk}"
               :auto-upload="true"
@@ -143,7 +142,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+
 import {updateData, bindTencent} from '@/apis/account';
 import message from '@/utils/messager';
 import images from '@/components/modules/general/images.vue';
@@ -156,7 +155,6 @@ export default {
   },
   data() {
     return {
-      baseURL: axios.defaults.baseURL,
       windowWidth: document.documentElement.clientWidth,
       drawer: false,
       selected: [],
@@ -173,7 +171,6 @@ export default {
   mounted() {
     //store对象
     const query = this.$route.query;
-
     if (query.code && query.state) {
       //todo QQ登录
       this.$route.query = {} //query:空
@@ -186,18 +183,11 @@ export default {
     this.isBind = this.userDetail.other //是否绑定第三方
     //用户信息
     this.updateInfo = {}
-    document.addEventListener("keypress", (events) => {
-      /**
-       * 暗道
-       */
-      this.event += events.key;
-      if (this.event.length === 4 && this.event === 'home') {
-        window.open('http://43.138.105.186:8888/codeminer-admin/')
-      }
-      if (this.event.length > 4) {
-        this.event = '';
-      }
-    })
+    document.addEventListener("keypress", this.transfer)
+  },
+  unmounted() {
+    //卸载sj
+    document.removeEventListener('keypress', this.transfer)
   },
   computed: {
     ...mapState(
@@ -215,20 +205,30 @@ export default {
   },
   methods: {
     /**
+     * 暗道
+     */
+    transfer() {
+      this.event += event.key;
+      if (this.event.length === 4 && this.event === 'home') {
+        window.open('http://43.138.105.186:8888/codeminer-admin/')
+      }
+      if (this.event.length > 4) {
+        this.event = '';
+      }
+    },
+    /**
      *取消编辑
      * 头像还原
      */
     cancelEditInfo() {
       this.userAvatar = this.tempAvatar
       this.dialogFormVisible = false
-
     },
     /**
      *
      * 处理爱好选择
      */
     selectHabit(val) {
-
       this.selected = Object.values(val)
     },
     /**
@@ -261,9 +261,13 @@ export default {
      * 上传头像
      * */
     handleAvatarSuccess(response) {
+      if (response.code === 1000) {
+        this.setImages(response.data)
+        message('上传成功');
+      } else {
+        message('上传失败', 'warning')
+      }
 
-      this.userAvatar = response;
-      message('上传成功');
     },
     /**
      *   提交修改个人信息

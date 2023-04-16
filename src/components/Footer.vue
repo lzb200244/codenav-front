@@ -71,7 +71,7 @@
         </el-link>
       </div>
       <div style="display: flex;justify-content: center" class="my-5">
-        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=45010702001942"
+        <a target="_blank" href="http://beian.miit.gov.cn"
            style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
           <img src="http://www.beian.gov.cn/img/ico.ico" style="float:left;"/>
           <p style="
@@ -79,8 +79,8 @@
           height:20px;
           line-height:20px;
           margin-left: 5px ;
-          color:#939393;font-size: 14px">桂公网安备
-            45010702001942号</p>
+          color:#939393;font-size: 14px">桂ICP备
+            2022008353号-1</p>
         </a>
       </div>
 

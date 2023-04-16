@@ -5,8 +5,7 @@ import axios from "@/axios";
  注册
  */
 export function register({username, password, re_password, email}) {
-    return axios.post("/account/user", {
-        type_: 1, //1代表注册
+    return axios.post("/account/register", {
         username,
         password,
         re_password,
@@ -20,14 +19,12 @@ export function register({username, password, re_password, email}) {
 export function login({username, password, loginemail, code}) {
     if (loginemail) {
         return axios.post("/account/user", {
-            type_: 2,//2:登入
             email: loginemail,
             code,
             opt: 1
         })
     }
     return axios.post("/account/user", {
-        type_: 2,
         username,
         password,
         opt: 2
@@ -42,7 +39,6 @@ export function login({username, password, loginemail, code}) {
 export function tencentLogin(user_code) {
     return axios.post("/account/user", {
         user_code,
-        type_: 2,
         opt: 3
     });
 }

@@ -25,7 +25,6 @@
                   <template v-else>
                     <template></template>
                     <el-button @click="follow(userObj.user.id,followed)">
-
                       {{ userObj.user.cross ? "互相关注" : followStatus }}
                     </el-button>
                   </template>
@@ -96,7 +95,18 @@ export default {
   props: {
     //用户对象
     userObj: {
-      require: true
+      require: true,
+      // default: {
+      //   "user": {
+      //     "id": 1,
+      //     "username": "裴",
+      //     "avatar": "key",
+      //     "score": 2,
+      //     "introduce": "我来自外太空!",
+      //     "habit": [],
+      //     "cross": true
+      //   }
+      // }
     },
     //是否悬浮
     shadow: {
@@ -129,6 +139,7 @@ export default {
     follow(id, status) {
       //关注
       if (status === false) {
+        //放入用户id的关注列表里
         this.$store.commit('addFollows', '' + id)
         //取关
       } else {

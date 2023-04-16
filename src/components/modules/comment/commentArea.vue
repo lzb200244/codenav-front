@@ -13,9 +13,7 @@
         v-model="commentObj.content"
         :defaultConfig="editorConfig"
         :mode="mode"
-        @onCreated="handleCreated"
-    />
-
+        @onCreated="handleCreated"/>
     <el-button type="primary" class="float-right m-6" @click="remark(replayUser.replayId)">{{ opt }}</el-button>
   </div>
   <template v-if="commentList">

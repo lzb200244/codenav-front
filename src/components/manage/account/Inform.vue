@@ -26,8 +26,7 @@
                   v-model="picker_filter.picker"
                   type="date"
                   placeholder="选择筛选日期"
-                  size="large"
-              />
+                  size="large"/>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="filterInform">查询</el-button>
@@ -45,24 +44,29 @@
 
           </el-form>
         </el-row>
-        <div class="demo-collapse">
-          <el-scrollbar height="500px">
-            <template v-for="(item,index) in Informs" :key="item.pk">
-              <el-alert
-                  @close="clearInformItem(item.pk,false)"
-                  :title="item.type"
-                  :type="item.leave">
-                <template #default>
-                  <div>
-                    <p v-html="item.content" style="margin-left: 40px;color: #777;font-size: 12px;">
-                    </p>
-                    <span style="color: #999;font-size: 8px">{{ item.create_time }}</span>
-                  </div>
-                </template>
-              </el-alert>
+        <el-row class="mt-6">
+          <el-scrollbar class="bg-cyan-50" height="500px" style="width: 100%">
+            <template v-if="Informs.length===0">
+              <el-empty style="width: 100%" description="暂时没有"/>
+            </template>
+            <template v-else>
+              <template v-for="(item,index) in Informs" :key="item.pk">
+                <el-alert
+                    @close="clearInformItem(item.pk,false)"
+                    :title="item.type"
+                    :type="item.leave">
+                  <template #default>
+                    <div>
+                      <p v-html="item.content" style="margin-left: 40px;color: #777;font-size: 12px;">
+                      </p>
+                      <span style="color: #999;font-size: 8px">{{ item.create_time }}</span>
+                    </div>
+                  </template>
+                </el-alert>
+              </template>
             </template>
           </el-scrollbar>
-        </div>
+        </el-row>
       </el-main>
     </el-container>
     <el-dialog
@@ -112,7 +116,7 @@ export default {
   },
   computed: {
     ...mapState({
-      Informs:state => state.Account.Informs
+      Informs: state => state.Account.Informs
     }),
     informOption() {
       let allSelect = this.$store.state.Operation.allSelect

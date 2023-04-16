@@ -29,27 +29,7 @@ const instance = axios.create({
     }
 });
 
-export function request(opt) {
-    return axios.create({
-        baseURL: () => {
-            let path = 'http://127.0.0.1:8000/api/'
-            switch (opt) {
-                case 'account': {
-                    return path + opt
-                }
-                case 'operation': {
-                    return path + opt
-                }
-                case 'hall': {
-                    return path + opt
-                }
-            }
-        },
-        // baseURL: 'api',
-        timeout: 1000,
 
-    });
-}
 
 
 instance.interceptors.request.use(function (config) {
@@ -85,9 +65,9 @@ instance.interceptors.response.use(async function (response) {
         //反扒重定向到百度
         return window.location.href = "https://www.baidu.com";
     }
-    if (response?.status > 500) {
-        message('请求失败', 'error');
-    }
+    // if (response?.status > 500) {
+    //     message('请求失败', 'error');
+    // }
     let error_res = response?.data;
     message(error_res.msg, 'warning')
     // endLoading()

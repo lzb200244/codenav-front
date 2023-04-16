@@ -81,6 +81,7 @@ export default defineConfig(({command, mode}) => {
                 '@': fileURLToPath(new URL('./src', import.meta.url)),
             }
         },
+
         server: {
             https: env.ENV === 'production',
             hmr: true,
@@ -96,6 +97,7 @@ export default defineConfig(({command, mode}) => {
                 }
             }
         },
+
 
         /**
          * 打包

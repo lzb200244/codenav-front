@@ -32,14 +32,12 @@
                 </el-icon>
                 <template #title>推 荐</template>
               </el-menu-item>
-              <el-badge :value="hitCount===0?'':hitCount" :max="20" class="item" type="primary">
-                <el-menu-item index="/account/inform">
-                  <el-icon>
-                    <span class="iconfont">&#xe602;</span>
-                  </el-icon>
-                  <template #title>消息通知</template>
-                </el-menu-item>
-              </el-badge>
+              <el-menu-item index="/account/inform">
+                <el-icon>
+                  <span class="iconfont">&#xe602;</span>
+                </el-icon>
+                <template #title>消息通知</template>
+              </el-menu-item>
               <el-menu-item>
                 <el-icon>
                   <span class="iconfont">&#xe63e;</span>
@@ -105,9 +103,9 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      hitCount: state => state.Account.hitCount
-    }),
+    // ...mapState({
+    //   hitCount: state => state.Account.hitCount
+    // }),
     //获取路由当前访问组件
     activeIndex() {
       return this.$route.fullPath

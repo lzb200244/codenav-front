@@ -6,7 +6,8 @@ export default [
         component: () => import('@/components/manage/account.vue'),
         redirect: '/account/person',
         meta: {
-            requiresAuth: true, title: '个人-搬运工',
+            requiresAuth: true,
+            title: '个人-搬运工',
             content: {
                 keywords: '',
                 description: ''

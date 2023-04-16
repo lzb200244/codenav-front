@@ -10,15 +10,15 @@
           <el-input class="mb-8" v-model.lazy="search" placeholder="支持远程搜索~~~"/>
         </el-row>
         <el-row class="mt-6">
-          <template v-if="SiteData.length===0">
-            <el-empty style="width: 100%" description="没有收藏~~~">
-              <el-button type="primary" class="ml-4" @click="$router.push('/index')">
-                前往收藏
-              </el-button>
-            </el-empty>
-          </template>
-          <template v-else>
-            <el-scrollbar class="bg-cyan-50" height="500px" style="width: 100%">
+          <el-scrollbar class="bg-cyan-50" height="500px" style="width: 100%">
+            <template v-if="SiteData.length===0">
+              <el-empty style="width: 100%" description="没有收藏~~~">
+                <el-button type="primary" @click="$router.push('/index')">
+                  前往收藏
+                </el-button>
+              </el-empty>
+            </template>
+            <template v-else>
               <template v-for="item in SiteData " :key="item.name">
                 <lists
                     class="my-4"
@@ -39,8 +39,8 @@
                   </template>
                 </lists>
               </template>
-            </el-scrollbar>
-          </template>
+            </template>
+          </el-scrollbar>
         </el-row>
 
       </el-main>

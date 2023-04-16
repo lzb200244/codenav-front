@@ -35,15 +35,16 @@
           </div>
         </el-row>
         <el-row class="mt-6">
-          <template v-if="recommends.length===0">
-            <el-empty style="width: 100%" description="推荐获取积分~~~~~$$">
-              <el-button type="primary" class="ml-1" @click="drawer2 = true">
-                我要推荐
-              </el-button>
-            </el-empty>
-          </template>
-          <template v-else>
-            <el-scrollbar class="bg-cyan-50" style="width: 100%" height="500px">
+
+          <el-scrollbar class="bg-cyan-50" style="width: 100%" height="500px">
+            <template v-if="recommends.length===0">
+              <el-empty description="推荐获取积分">
+                <el-button type="primary"  @click="drawer2 = true">
+                  我要推荐
+                </el-button>
+              </el-empty>
+            </template>
+            <template v-else>
               <template v-for="item in recommends " :key="item.name">
                 <lists
                     class="my-4"
@@ -77,9 +78,10 @@
                   </template>
                 </lists>
               </template>
+            </template>
+          </el-scrollbar>
 
-            </el-scrollbar>
-          </template>
+
         </el-row>
 
       </el-main>
@@ -135,7 +137,7 @@
                   <el-upload
                       class="upload-demo"
                       :ref="uploadRef"
-                      :action="baseURL+'/operation/uploadfile'"
+                      :action="'/api/operation/uploadfile'"
                       :limit="1"
                       :auto-upload="true"
                       name="site_img"
@@ -211,15 +213,14 @@
   </el-drawer>
 </template>
 <script>
-import axios from 'axios'
+
 import recommendRules from '@/validations/recommendRules';
-import {recommend} from '@/apis/account';
+import {DeleteRecommend, ReCheck, recommend} from '@/apis/account';
 import {spider} from '@/apis/operation';
 import message, {Notification} from '@/utils/messager';
 import images from '@/components/modules/general/images.vue';
 import mySelect from '@/components/modules/general/select.vue';
 import Lists from "@/components/modules/general/list.vue";
-import {DeleteRecommend, ReCheck} from '@/apis/account';
 
 
 export default {
@@ -233,7 +234,7 @@ export default {
   data() {
     return {
       drawer: false,
-      baseURL: axios.defaults.baseURL,
+
       rules: recommendRules,
       windowWidth: 0,
       loading: false,
@@ -312,7 +313,11 @@ export default {
     },
     //图片上传成功回调
     uploadSuccess(image) {
-      this.Recommend.img_url = image;
+      if (image.code === 1000) {
+        this.setImages(image.data)
+      } else {
+        message('上传失败', 'warning')
+      }
     },
     //上传成功时的回调函数
     cancelClick() {
