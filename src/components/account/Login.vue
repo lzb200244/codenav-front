@@ -1,7 +1,7 @@
 <template>
   <div class="bg ">
     <el-container class="relative ">
-      <el-header height="10"></el-header>
+
       <el-main>
         <el-form
             label-position="top"
@@ -137,20 +137,19 @@ export default {
       code: '获取验证码',
       disabled: false,
       loading: false,
-      captchaobj: ''
     }
   },
   mounted() {
+
     remove_token();
-    let query = this.$route.query;
-    if (query.code && query.state) {
+    let {code, state} = this.$route.query;
+    if (code && state) {
       //todo QQ登录
       this.$router.replace({query: {}})
-      tencentLogin(query.code).then(res => {
+      tencentLogin(code).then(res => {
         return this.LoginSuccess(res)
       })
     }
-
   },
   methods: {
     /**
@@ -160,7 +159,9 @@ export default {
       message('登入成功');
       //存储token
       set_token('code-token', res.data.token);
-      this.$router.push('/index');
+      this.$router.push({
+        path: this.$route.query.next ?? '/index',
+      });
     },
     /**
      * 登录

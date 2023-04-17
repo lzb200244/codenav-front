@@ -9,7 +9,7 @@ export default {
          * @param status 状态
          */
         clickStarUnstar(uid, status) {
-            if (this.loginRequire) return
+
             markStarPost(uid, status).then((res) => {
                 let item = {}
                 for (let i = 0; i < this.SiteData.length; i++) {

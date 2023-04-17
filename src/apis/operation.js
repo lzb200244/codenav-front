@@ -5,7 +5,9 @@ import axios from "@/axios";
  * @returns {*}
  */
 export function getNews() {
-    return axios.get('/operation/news')
+    return axios.get('/operation/news', {
+        auth: false
+    })
 }
 
 /**
@@ -17,9 +19,11 @@ export function getNews() {
 export function markStarPost(uid, status) {
     //收藏取消
     return axios.put(`/operation/opt`, {
-        uid,
-        status,
-    })
+            uid,
+            status,
+        },
+        {auth: true}
+    )
 }
 
 /**
@@ -31,7 +35,8 @@ export function spider(spider_url = "") {
     return axios.get("/operation/spider", {
             params: {//请求参数
                 spider_url
-            }
+            },
+            auth: true
         }
     )
 
@@ -46,7 +51,8 @@ export function getSiteDetail(uid) {
     return axios.get('/operation/detail', {
             params: {
                 uid
-            }
+            },
+            auth: false
         }
     )
 
@@ -65,7 +71,8 @@ export function Reply(reply_site, content, parentId = undefined) {
         reply_site,
         content,
         parentId,
-    })
+
+    }, {auth: true})
 }
 
 /**
@@ -78,7 +85,8 @@ export function getAllComment(uid) {
     return axios.get(`/operation/comment`, {
         params: {
             uid
-        }
+        },
+        auth: true
     })
 }
 
@@ -94,8 +102,9 @@ export function getAllComment(uid) {
 export function Option(id, status, uid, value) {
 
     return axios.post(`/operation/opt`, {
-        id, status, uid, value
-    });
+        id, status, uid, value,
+
+    }, {auth: true});
 
 }
 
@@ -106,8 +115,9 @@ export function Option(id, status, uid, value) {
  */
 export function sendEmailCode({loginemail}) {
     return axios.post("/operation/email", {
-        email: loginemail
-    })
+        email: loginemail,
+
+    }, {auth: false})
 }
 
 /**
@@ -123,8 +133,9 @@ export function getContent(ordering = 'hot', page = 1, filter, search) {
             ordering,
             page,
             search,
-            filter
-        }
+            filter,
+        },
+        {auth: ordering === '收藏' || page > 2}
     )
 }
 
@@ -133,10 +144,10 @@ export function getContent(ordering = 'hot', page = 1, filter, search) {
  * @returns {*}
  */
 export function getAllSelect() {
-    return axios.get('/operation/all_select')
+    return axios.get('/operation/all_select', {auth: false})
 
 }
 
 export function getBillBoard() {
-    return axios.get('/operation/board')
+    return axios.get('/operation/board', {auth: false})
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="affix-container " v-if="$route.path!=='/login'">
+  <div class="affix-container ">
     <el-affix>
       <el-header class="w-screen" style="padding: 0;z-index: 9999">
         <el-menu
@@ -150,14 +150,14 @@
 </template>
 <script>
 import {remove_token} from '@/utils/cookies';
-import require_auth from '@/mixins/require_auth'
+
 import {mapMutations} from "vuex";
 /*
 * todo 导航栏组件
 *
 * */
 export default {
-  mixins: [require_auth],
+
   name: 'header',
   props: {
     status: {
@@ -282,7 +282,7 @@ export default {
      * 搜索框
      */
     submitSearch() {
-      if (!this.searchFrom || this.loginRequire) return;
+
       if (this.currentPath.startsWith('/type') || this.currentPath.startsWith('/source')) {
         this.$router.replace({
           name: 'source',

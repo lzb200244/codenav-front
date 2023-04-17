@@ -9,8 +9,9 @@ export function register({username, password, re_password, email}) {
         username,
         password,
         re_password,
-        email
-    })
+        email,
+
+    }, {auth: false})
 }
 
 /**
@@ -21,14 +22,17 @@ export function login({username, password, loginemail, code}) {
         return axios.post("/account/user", {
             email: loginemail,
             code,
-            opt: 1
+            opt: 1,
+        }, {
+            auth: false
         })
     }
     return axios.post("/account/user", {
         username,
         password,
-        opt: 2
-    })
+        opt: 2,
+
+    }, {auth: false})
 }
 
 /**
@@ -39,7 +43,9 @@ export function login({username, password, loginemail, code}) {
 export function tencentLogin(user_code) {
     return axios.post("/account/user", {
         user_code,
-        opt: 3
+        opt: 3,
+    }, {
+        auth: false
     });
 }
 
@@ -53,10 +59,10 @@ export function bindTencent(code, method) {
     switch (method) {
         case "post":
             return axios.post("/account/tencent", {
-                code,
-            });
+                code
+            }, {auth: true});
         case "get":
-            return axios.get("/account/tencent")
+            return axios.get("/account/tencent", {auth: true})
     }
 }
 
@@ -66,14 +72,14 @@ export function bindTencent(code, method) {
  * @returns {*}
  */
 export function getInfo() {
-    return axios.get("/account/user",)
+    return axios.get("/account/user", {auth: true})
 }
 
 /**
  * 用户推荐
  */
 export function recommend(form) {
-    return axios.post("/account/recommend", {...form})
+    return axios.post("/account/recommend", {...form,}, {auth: true})
 }
 
 /**
@@ -93,7 +99,7 @@ export function updateData({name, qq, habit, userAvatar, message,}) {
         habit,
         userAvatar,
         message
-    })
+    }, {auth: true})
 }
 
 
@@ -105,11 +111,7 @@ export function updateData({name, qq, habit, userAvatar, message,}) {
  */
 export function ReCheck(uid) {
 
-    return axios.put("/account/recommend", {
-
-            uid
-
-        }
+    return axios.put("/account/recommend", {uid}, {auth: true,}
     )
 }
 
@@ -123,7 +125,8 @@ export function DeleteRecommend(uid) {
     return axios.delete(`/account/recommend`, {
         data: {
             uid
-        }
+        },
+        auth: true
     })
 }
 
@@ -137,6 +140,7 @@ export function recommendList(page) {
         params: {
             page
         }
+        , auth: true
     })
 }
 
@@ -145,7 +149,7 @@ export function recommendList(page) {
  * @returns {*}
  */
 export function collectList() {
-    return axios.get('/account/collect')
+    return axios.get('/account/collect', {auth: true})
 }
 
 
@@ -155,8 +159,8 @@ export function collectList() {
  */
 export function getInforms(picker) {
     return axios.post('/account/informs', {
-        ...picker
-    })
+        ...picker,
+    }, {auth: true})
 
 }
 
@@ -170,8 +174,8 @@ export function deleteInforms(pk, clear) {
     return axios.delete('/account/informs', {
         data: {
             pk, clear
-        }
+        },
+        auth: true
     })
-
 }
 

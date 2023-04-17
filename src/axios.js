@@ -2,77 +2,82 @@ import axios from 'axios'
 import message from '@/utils/messager';
 import {get_token} from '@/utils/cookies';
 import router from '@/permission'
-import {ElLoading} from 'element-plus'
 
 
-let loading;
-const startLoading = () => {
-    // element-ui loading 服务调用方式
-    loading = ElLoading.service({
-        lock: true,
-        text: '拼命加载中...',
-        spinner: 'el-icon-loading',  // 自定义图标
-        target: document.getElementById('content')
-    })
-}
-
-// loading结束 方法
-const endLoading = () => {
-    loading.close()
-}
 const instance = axios.create({
     baseURL: '/api',
     // baseURL: 'api',
     timeout: 20000,
     headers: {
+        'Content-Type': 'application/json',
         'X-Custom-Header': 'code-miner'
+
     }
 });
 
 
-
-
 instance.interceptors.request.use(function (config) {
-    // 在发送请求之前做些什么
-    // console.log(router.currentRoute.value.meta)
+
+    //是否登录
     let token = get_token();
+    // 当前路由
+    const current_path = router.currentRoute.value.path
+    //请求是否需要认证接口
+    const auth = config.auth
+    //需要登录的页面
+    const {requiresAuth} = router.currentRoute.value.meta
+    //表示登录和需要登录页面
+    if (!token && (auth || requiresAuth)) {
+        router.push({
+            path: '/login',
+            query: {next: current_path}
+        })
+        return Promise.reject({
+            response: {
+                data: {
+                    status: 400,
+                    msg: '需要登入哦！！'
+                }
+            }
+        })
+    }
+
+    //去除auth参数
+    config.auth = undefined
     config.url = config.url + '?offsetTime=' + new Date().getTime().toString()
     if (token) {
         config.headers['TOKEN'] = token
     }
-    // startLoading()
+
     return config;
 }, function (error) {
-
     return Promise.reject(error);
 });
 
 
 instance.interceptors.response.use(async function (response) {
-    // 2xx 范围内的状态码都会触发该函数。
-    // 对响应数据做点什么
-    // endLoading()
     return response.data;
 }, function (error) {
-    const response = error.response
+    const {response} = error
     if (response?.status === 403) {
-        message('请先登录!!', 'warning');
+        message('需要登入哦！！', 'warning');
         router.push('/login')
-        return
-    }
-    if (response?.status === 429) {
-        message('操作频率过快,已被限流,稍后在试试', 'warning');
-        //反扒重定向到百度
-        return window.location.href = "https://www.baidu.com";
-    }
-    // if (response?.status > 500) {
-    //     message('请求失败', 'error');
-    // }
-    let error_res = response?.data;
-    message(error_res.msg, 'warning')
-    // endLoading()
-    return Promise.reject(new Error(error_res.msg));
+    } else if (response?.status === 429) {
 
+        window.location.href = "https://www.baidu.com";
+    } else if (response?.status >= 500) {
+        // Handle server errors
+        message('请求失败', 'error');
+    } else if (response?.data?.msg) {
+        // Handle other errors
+
+        let error_res = response?.data;
+        message(error_res?.msg, 'warning',false, true)
+    } else {
+        message('未知错误，请稍后重试！', 'warning');
+
+    }
+    return Promise.reject(error);
 
 });
 

@@ -17,23 +17,34 @@ export default [
             {
                 path: 'person',
                 name: 'person',
-
+                meta: {
+                    requiresAuth: true,
+                },
                 component: () => import('@/components/manage/account/person.vue'),
 
             },
             {
                 path: 'collect',
                 name: 'collect',
+                meta: {
+                    requiresAuth: true,
+                },
                 component: () => import('@/components/manage/account/collect.vue'),
             },
             {
                 path: 'recommend',
                 name: 'recommend',
+                meta: {
+                    requiresAuth: true,
+                },
                 component: () => import('@/components/manage/account/recommend.vue'),
             },
             {
                 path: 'inform',
                 name: 'inform',
+                meta: {
+                    requiresAuth: true,
+                },
                 component: () => import('@/components/manage/account/inform.vue'),
 
             },
@@ -43,7 +54,7 @@ export default [
         path: '/recommends',
         name: 'recommends',
         meta: {
-            requiresAuth: false, title: '用户推荐-搬运工',
+            requiresAuth: true, title: '用户推荐-搬运工',
             content: {
                 keywords: '',
                 description: ''

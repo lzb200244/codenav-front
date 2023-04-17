@@ -209,14 +209,14 @@ import emoji from '/public/emoji.ts'
 import message from '@/utils/messager';
 import {getAllComment, Reply, getSiteDetail, Option} from '@/apis/operation';
 import {markStarPost} from '@/apis/operation';
-import require_auth from '@/mixins/require_auth'
+
 import site_option from "@/mixins/site_option";
 
 export default {
   components: {
     card
   },
-  mixins: [require_auth, site_option],
+  mixins: [ site_option],
   data() {
     return {
       detail: '',
@@ -279,7 +279,7 @@ export default {
      */
     comment_show() {
       //判断当前用户是否登入
-      if (this.loginRequire) return;
+
       //生成评论请求
       getAllComment(this.uid).then((res) => {
         this.config.comments = res.data;
@@ -291,7 +291,7 @@ export default {
      * 收藏改项目
      * */
     clickStarUnstar(uid, status) {
-      if (this.loginRequire) return;
+
       let temp = this.detail;
       markStarPost(uid, status).then((res) => {
         this.collect = !status;

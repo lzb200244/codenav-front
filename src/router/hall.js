@@ -16,7 +16,7 @@ export default [
                 path: 'rank',
                 name: 'rank',
                 meta: {
-                    requiresAuth: true, title: '排行榜 | 英雄榜',
+                    requiresAuth: false, title: '排行榜 | 英雄榜',
 
                 },
                 component: () => import('@/components/hall/views/rank.vue'),

@@ -29,7 +29,11 @@ router.beforeEach((to, from, next) => {
         if (to.meta.requiresAuth) {
             remove_token();
             message('需要登入哦!', 'warning', false, true);
-            return next({path: '/login'});
+            return next({
+                path: 'login', query: {
+                    next: to.fullPath
+                }
+            });
         }
     }
     return next();

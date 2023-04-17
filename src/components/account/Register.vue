@@ -1,7 +1,7 @@
 <template>
   <div class="common-layout ">
     <el-container>
-      <el-header height="10"></el-header>
+
       <el-main class="z-1">
         <el-form
             label-position="top"

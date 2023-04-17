@@ -72,7 +72,7 @@
 import Card from '/src/components/modules/source/Card.vue';
 import mySelect from '/src/components/modules/general/Select.vue';
 import {getContent} from '@/apis/operation';
-import require_auth from '@/mixins/require_auth'
+
 import {mapState} from "vuex";
 // import bs4 from "@/utils/encrypt"
 
@@ -95,7 +95,7 @@ export default {
       type: String, default: '编程语言'
     }
   },
-  mixins: [require_auth],
+
   components: {
     Card, mySelect
   },
@@ -123,7 +123,7 @@ export default {
      * */
     handleEvent(filterList) {
       filterList = Object.values(filterList);
-      if (this.loginRequire) return;
+
       this.currentPage = 1 //显示第一页
       getContent(this.order, this.currentPage, filterList).then(res => {
         this.$store.commit('setPageCount', res.data.count)
@@ -136,7 +136,7 @@ export default {
      * 排序方式
      * */
     orderingOpt(order) {
-      if (order === '收藏' && this.loginRequire) return
+
       this.currentPage = 1
       getContent(order, this.currentPage, this.filterList).then(res => {
         this.$store.commit('setPageCount', res.data.count)
@@ -150,7 +150,7 @@ export default {
      * @param page
      */
     handleCurrentChange(page) {
-      if (this.loginRequire) return;
+
       getContent(this.order, page, this.filterList).then(res => {
         this.$store.commit('setPageCount', res.data.count)
         this.$store.commit('setPageList', res.data.results)

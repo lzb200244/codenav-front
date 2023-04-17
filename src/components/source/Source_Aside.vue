@@ -110,9 +110,7 @@ export default {
     },
 
   },
-  mounted() {
 
-  },
   methods: {
     //获取当前点击的选项传给父组件
     getText(event) {

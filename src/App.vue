@@ -3,18 +3,32 @@ import navHeader from '@/components/header.vue';
 import navFooter from '@/components/footer.vue';
 import {MoreFilled} from '@element-plus/icons-vue'
 import {getNews} from "@/apis/operation";
-import {ref} from 'vue'
+import {computed, onMounted, ref} from 'vue'
+import {useRoute} from "vue-router";
 
-let news = []
+
+const news = []
+const route = useRoute()
+const centerDialogVisible = ref(false)
+const whitePath = [
+  'login', 'register'
+]
 const getNew = () => {
   getNews().then(res => {
-    news = Object.freeze(res.data)
+    news.push(Object.freeze(res.data))
     centerDialogVisible.value = true
   })
 }
 
+const showHeader = computed(() => {
+  const routeName = route.name
+  if (routeName === undefined) {
+    return false;
+  }
+  return !whitePath.includes(routeName)
+  //第一次默认是/
+})
 
-const centerDialogVisible = ref(false)
 
 </script>
 <template>
@@ -52,7 +66,7 @@ const centerDialogVisible = ref(false)
       </template>
     </el-dialog>
     <div class="header">
-      <navHeader/>
+      <navHeader v-if="showHeader"/>
     </div>
     <div style="min-height: 100vh" class="content">
       <router-view id="content"></router-view>

@@ -7,8 +7,9 @@ import instance from "@/axios";
 export function getRank(week, tp) {
     return instance.post('/hall/rank', {
         week,
-        tp
-    })
+        tp,
+
+    }, {auth: false})
 }
 
 /**
@@ -18,7 +19,8 @@ export function getRank(week, tp) {
  */
 export function myRank(tp) {
     return instance.get('/hall/rank', {
-        tp
+        tp,
+        auth: true
     })
 }
 
@@ -34,20 +36,21 @@ export function getChatList(chatFilter) {
     return instance.get("/hall/chat", {
         params: {
             ...chatFilter
-        }
+        }, auth: true
     })
 }
 
 export function handleTrump({id, status}) {
     return instance.put("/hall/chat", {
-        id, status
-    })
+        id, status,
+    }, {auth: true})
 }
 
 export function handleRemark(replay) {
     return instance.post("/hall/chat", {
         ...replay
-    })
+
+    }, {auth: true})
 }
 
 /**
@@ -60,7 +63,8 @@ export function getCircleList({type} = {}) {
     return instance.get('/hall/circle', {
         params: {
             type
-        }
+        },
+        auth: true
     })
 }
 
@@ -72,8 +76,9 @@ export function getCircleList({type} = {}) {
  */
 export function following({follow, status} = {}) {
     return instance.post('/hall/circle', {
-        follow, status
-    })
+        follow, status,
+
+    }, {auth: true})
 }
 
 /**
@@ -81,7 +86,9 @@ export function following({follow, status} = {}) {
  * @returns {*}
  */
 export function getStimulateGoods() {
-    return instance.get('/hall/stimulate')
+    return instance.get('/hall/stimulate', {
+        auth: true
+    })
 }
 
 /**
@@ -91,16 +98,16 @@ export function getStimulateGoods() {
  * @returns {*}
  */
 export function buyGoods({id, count = 1} = {}) {
-    return instance.post('/hall/stimulate', {id, count})
+    return instance.post('/hall/stimulate', {id, count,}, {auth: true})
 }
 
 export function getOrders() {
-    return instance.get('/hall/order')
+    return instance.get('/hall/order', {auth: true})
 }
 
 export function getBaseHall({path, params} = {}) {
-    console.log(params)
     return instance.get(`/hall/${path}`, {
-        params
+        params,
+        auth: true
     })
 }

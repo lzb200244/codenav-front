@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import require_auth from '@/mixins/require_auth'
+
 import site_option from '@/mixins/site_option'
 
 /*
@@ -98,7 +98,7 @@ import site_option from '@/mixins/site_option'
 *
 * */
 export default {
-  mixins: [require_auth, site_option],
+  mixins: [ site_option],
   props: {
     //是否需要显示加载
     Loading: {
